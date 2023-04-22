@@ -1,9 +1,9 @@
-package com.hugidonic.kstuscheduler.presentation.theme
+package com.hugidonic.kstuscheduler.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
 val Black = Color(0xFF333333)
-val White = Color(0xFFFFFFFF)
+val White = Color(0xFFEEEEEE)
 val OffWhite = Color(0xFFEDEEF0)
 val Gray = Color.Gray
 

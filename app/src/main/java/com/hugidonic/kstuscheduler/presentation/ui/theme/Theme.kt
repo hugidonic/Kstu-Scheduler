@@ -1,4 +1,4 @@
-package com.hugidonic.kstuscheduler.presentation.theme
+package com.hugidonic.kstuscheduler.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -12,17 +12,19 @@ private val DarkColorPalette = darkColors(
 	secondary = Dark600,
 
 	background = Dark100,
+	onBackground = White,
 	surface = Dark200,
 )
 
 private val LightColorPalette = lightColors(
 	primary = Red100,
 	primaryVariant = Red200,
-	secondary = Gray,
-
+	secondary = Dark600,
 
     background = OffWhite,
+	onBackground = Dark100,
     surface = White,
+	onSurface = Dark100,
 )
 
 @Composable

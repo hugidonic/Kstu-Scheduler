@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hugidonic.kstuscheduler.presentation.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 import com.hugidonic.kstuscheduler.presentation.utils.bottomBorder
 
 

@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
 import com.hugidonic.kstuscheduler.presentation.screens.ScheduleScreen
-import com.hugidonic.kstuscheduler.presentation.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {

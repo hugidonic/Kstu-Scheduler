@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.hugidonic.kstuscheduler.presentation.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 
 @Composable
 fun SubjectLine(
@@ -19,7 +19,7 @@ fun SubjectLine(
 	cardHeight: Dp,
 ) {
 	Column(
-		modifier=Modifier.heightIn(min=cardHeight),
+		modifier=Modifier.heightIn(min=cardHeight).padding(end=10.dp),
 		horizontalAlignment = Alignment.End,
 	) {
 		EllipseImage(isActive)
@@ -41,6 +41,7 @@ fun SubjectLine(
 				Text(
 					text="12:50",
 					style=MaterialTheme.typography.caption,
+					color=MaterialTheme.colors.secondary
 				)
 			}
 			Box(

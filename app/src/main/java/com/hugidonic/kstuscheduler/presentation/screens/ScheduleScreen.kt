@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.kstuscheduler.presentation.components.Header
 import com.hugidonic.kstuscheduler.presentation.components.SubjectRow
-import com.hugidonic.kstuscheduler.presentation.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 
 @Composable
 fun ScheduleScreen() {
