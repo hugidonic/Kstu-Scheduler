@@ -12,17 +12,15 @@ import com.hugidonic.kstuscheduler.R
 
 @Composable
 fun EllipseImage(
+	modifier: Modifier = Modifier,
 	isActive: Boolean = false,
 ) {
 	val activeResId = if (isActive) R.drawable.active_ellipse else R.drawable.ellipse
-	val size = if (isActive) 20.dp else 12.dp
-	val endPadding = if (isActive) 0.dp else 4.dp
-
 
 	Image(
 		painter = painterResource(id=activeResId),
 		contentDescription = null,
-		modifier = Modifier.padding(end=endPadding).size(size),
+		modifier = modifier,
 		contentScale = ContentScale.Fit,
 	)
 }

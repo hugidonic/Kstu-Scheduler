@@ -20,7 +20,7 @@ import com.hugidonic.kstuscheduler.presentation.ui.theme.White
 @Composable
 fun SubjectCard(
 	modifier: Modifier = Modifier,
-	SubjectTitle: String = "Основы информационной безопасности",
+	subjectTitle: String = "Основы информационной безопасности",
 ) {
 	Card(
 		modifier=modifier,
@@ -31,7 +31,7 @@ fun SubjectCard(
 			modifier = Modifier.padding(15.dp),
 		) {
 			Text(
-				text=SubjectTitle,
+				text=subjectTitle,
 				maxLines = 2,
 				color = if (isSystemInDarkTheme()) White else Red100,
 				overflow = TextOverflow.Ellipsis,

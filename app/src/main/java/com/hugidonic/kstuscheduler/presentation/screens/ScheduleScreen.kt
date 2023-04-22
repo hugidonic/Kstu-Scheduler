@@ -19,12 +19,14 @@ fun ScheduleScreen() {
 	Column {
 		Header()
 		LazyColumn (
-			modifier = Modifier.fillMaxSize().padding(vertical = 15.dp),
+			modifier = Modifier
+				.fillMaxSize()
+				.padding(16.dp),
 		) {
 			itemsIndexed(
 				items=(1..10).toList()
 			) {idx, item ->
-				val isActive = if (idx == ACTIVE_IDX) true else false
+				val isActive = idx == ACTIVE_IDX
 				SubjectRow(isActive)
 			}
 		}
