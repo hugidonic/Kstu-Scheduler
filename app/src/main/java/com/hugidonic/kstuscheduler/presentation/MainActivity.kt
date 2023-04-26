@@ -8,7 +8,9 @@ import androidx.compose.material.*
 import androidx.compose.ui.Modifier
 import com.hugidonic.kstuscheduler.presentation.screens.ScheduleScreen
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
