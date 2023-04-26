@@ -3,9 +3,9 @@ package com.hugidonic.domain.repositories
 import com.hugidonic.domain.models.ScheduleDayModel
 
 interface ScheduleRepository {
-	suspend fun loadSchedule(): ScheduleDayModel
+	suspend fun loadSchedule()
 
-	suspend fun getSchedule()
+	suspend fun getSchedule(): ScheduleDayModel
 	suspend fun getSubjectDetails()
-	suspend fun saveSchedule()
+	suspend fun saveSchedule(scheduleDayModel: ScheduleDayModel)
 }

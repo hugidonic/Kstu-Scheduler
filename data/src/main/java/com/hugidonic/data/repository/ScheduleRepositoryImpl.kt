@@ -1,15 +1,41 @@
 package com.hugidonic.data.repository
 
+import com.hugidonic.data.converters.ScheduleConverter
+import com.hugidonic.data.database.ScheduleDao
 import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.repositories.ScheduleRepository
 import kotlinx.coroutines.delay
 
-class ScheduleRepositoryImpl(): ScheduleRepository {
+class ScheduleRepositoryImpl(
+	private val scheduleDao: ScheduleDao,
+	private val scheduleConverter: ScheduleConverter
+): ScheduleRepository {
 
 	override suspend fun getSchedule(): ScheduleDayModel {
-		delay(2000)
-		return ScheduleDayModel(
+		delay(1000)
+		return scheduleConverter.scheduleDbModelToModel(
+			scheduleDao.getSchedule(scheduleObject.dayOfWeek)
+		)
+	}
+
+	override suspend fun getSubjectDetails() {
+		TODO("Not yet implemented")
+	}
+
+	override suspend fun saveSchedule(scheduleDayModel: ScheduleDayModel) {
+		scheduleDao.insertSchedule(
+			scheduleConverter.scheduleModelToDbModel(scheduleDayModel=scheduleDayModel)
+		)
+	}
+
+	override suspend fun loadSchedule() {
+		delay(1000)
+		saveSchedule(scheduleDayModel = scheduleObject)
+	}
+
+	companion object {
+		private val scheduleObject = ScheduleDayModel(
 			dayOfWeek= "Пн",
 			typeOfWeek= "Нечет",
 			date="09.12.2022",
@@ -45,17 +71,5 @@ class ScheduleRepositoryImpl(): ScheduleRepository {
 				null,
 			)
 		)
-	}
-
-	override suspend fun getSubjectDetails() {
-		TODO("Not yet implemented")
-	}
-
-	override suspend fun saveSchedule() {
-		TODO("Not yet implemented")
-	}
-
-	override suspend fun loadSchedule() {
-		TODO("Load data and save to db")
 	}
 }
