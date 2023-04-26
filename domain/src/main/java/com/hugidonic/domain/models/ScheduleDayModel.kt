@@ -4,5 +4,5 @@ data class ScheduleDayModel(
 	val dayOfWeek: String,
 	val typeOfWeek: String,
 	val date: String,
-	val subjects: List<SubjectModel>,
+	val subjects: List<SubjectModel?>,
 )
