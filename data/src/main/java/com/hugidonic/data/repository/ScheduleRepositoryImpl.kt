@@ -6,19 +6,8 @@ import com.hugidonic.domain.repositories.ScheduleRepository
 import kotlinx.coroutines.delay
 
 class ScheduleRepositoryImpl(): ScheduleRepository {
-	override suspend fun getSchedule() {
-		TODO("Not yet implemented")
-	}
 
-	override suspend fun getSubjectDetails() {
-		TODO("Not yet implemented")
-	}
-
-	override suspend fun saveSchedule() {
-		TODO("Not yet implemented")
-	}
-
-	override suspend fun loadSchedule(): ScheduleDayModel {
+	override suspend fun getSchedule(): ScheduleDayModel {
 		delay(2000)
 		return ScheduleDayModel(
 			dayOfWeek= "Пн",
@@ -56,5 +45,17 @@ class ScheduleRepositoryImpl(): ScheduleRepository {
 				null,
 			)
 		)
+	}
+
+	override suspend fun getSubjectDetails() {
+		TODO("Not yet implemented")
+	}
+
+	override suspend fun saveSchedule() {
+		TODO("Not yet implemented")
+	}
+
+	override suspend fun loadSchedule() {
+		TODO("Load data and save to db")
 	}
 }
