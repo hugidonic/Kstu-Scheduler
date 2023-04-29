@@ -39,7 +39,7 @@ class ScheduleRepositoryImpl(
 			dayOfWeek= "Пн",
 			typeOfWeek= "Нечет",
 			date="09.12.2022",
-			subjects= listOf<SubjectModel?>(
+			subjects= listOf(
 				null,
 				SubjectModel(
 					title="Основы информационной безопасности",
