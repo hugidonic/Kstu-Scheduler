@@ -27,6 +27,8 @@ fun Header() {
 					.padding(horizontal = 10.dp, vertical = 18.dp)
 			) {
 				Text(text="Группа: 1211-22")
+				Text(text="Группа: 1211-22")
+				Text(text="Группа: 1211-22")
 				Text(text="Неделя: нечет")
 			}
 
