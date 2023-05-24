@@ -1,5 +1,6 @@
 package com.hugidonic.kstuscheduler.presentation.schedule.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -19,19 +20,18 @@ fun Header() {
 			.background(MaterialTheme.colors.surface)
 	) {
 		Column {
-			Row(
-				horizontalArrangement = Arrangement.SpaceBetween,
-				verticalAlignment = Alignment.CenterVertically,
-				modifier = Modifier
-					.fillMaxWidth()
-					.padding(horizontal = 10.dp, vertical = 18.dp)
-			) {
-				Text(text="Группа: 1211-22")
-				Text(text="Группа: 1211-22")
-				Text(text="Группа: 1211-22")
-				Text(text="Неделя: нечет")
-			}
-
+				Row(
+					horizontalArrangement = Arrangement.SpaceBetween,
+					verticalAlignment = Alignment.CenterVertically,
+					modifier = Modifier
+						.fillMaxWidth()
+						.padding(horizontal = 10.dp, vertical = 18.dp)
+				) {
+					Text(text="Группа: 1211-22")
+					Text(text="Группа: 1211-22")
+					Text(text="Группа: 1211-22")
+					Text(text="Неделя: нечет")
+				}
 			ScrollableCalendar()
 		}
 	}

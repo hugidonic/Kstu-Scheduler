@@ -1,37 +1,24 @@
 package com.hugidonic.data.repository
 
-import com.hugidonic.data.converters.ScheduleConverter
 import com.hugidonic.data.database.ScheduleDao
 import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.repositories.ScheduleRepository
-import kotlinx.coroutines.delay
+import com.hugidonic.domain.utils.Resource
+import kotlinx.coroutines.flow.Flow
 
 class ScheduleRepositoryImpl(
 	private val scheduleDao: ScheduleDao,
-	private val scheduleConverter: ScheduleConverter
 ): ScheduleRepository {
 
-	override suspend fun getSchedule(): ScheduleDayModel {
-		delay(1000)
-		return scheduleConverter.scheduleDbModelToModel(
-			scheduleDao.getSchedule(scheduleObject.dayOfWeek)
-		)
-	}
 
-	override suspend fun getSubjectDetails() {
+
+	override suspend fun loadSchedule() {
 		TODO("Not yet implemented")
 	}
 
-	override suspend fun saveSchedule(scheduleDayModel: ScheduleDayModel) {
-		scheduleDao.insertSchedule(
-			scheduleConverter.scheduleModelToDbModel(scheduleDayModel=scheduleDayModel)
-		)
-	}
-
-	override suspend fun loadSchedule() {
-		delay(1000)
-		saveSchedule(scheduleDayModel = scheduleObject)
+	override suspend fun getSchedule(isFetchFromRemote: Boolean): Flow<Resource<ScheduleDayModel>> {
+		TODO("Not yet implemented")
 	}
 
 	companion object {
@@ -42,7 +29,7 @@ class ScheduleRepositoryImpl(
 			subjects= listOf(
 				null,
 				SubjectModel(
-					title="Основы информационной безопасности",
+					subjectTitle="Основы информационной безопасности",
 					shortTitle="ОИБ",
 					typeOfSubject="Лекция",
 					prepod="Садыков А.М.",
@@ -52,7 +39,7 @@ class ScheduleRepositoryImpl(
 				null,
 				null,
 				SubjectModel(
-					title= "Информационные технологии в информационной безопасности",
+					subjectTitle= "Информационные технологии в информационной безопасности",
 					shortTitle= "ИТВИБ",
 					typeOfSubject= "Лабораторная работа",
 					prepod= "Богомолов В.А.",
@@ -60,7 +47,7 @@ class ScheduleRepositoryImpl(
 					date= "1 сен - 4 дек"
 				),
 				SubjectModel(
-					title= "Теория вероятностей и математическая статистика",
+					subjectTitle= "Теория вероятностей и математическая статистика",
 					shortTitle= "ТВИМС",
 					typeOfSubject= "Практика",
 					prepod= "Хайруллин М.Х.",
@@ -72,4 +59,5 @@ class ScheduleRepositoryImpl(
 			)
 		)
 	}
+
 }

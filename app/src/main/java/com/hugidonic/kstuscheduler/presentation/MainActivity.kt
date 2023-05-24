@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
-import com.hugidonic.kstuscheduler.presentation.screens.ScheduleScreen
+import com.hugidonic.kstuscheduler.presentation.schedule.components.ScheduleScreen
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
