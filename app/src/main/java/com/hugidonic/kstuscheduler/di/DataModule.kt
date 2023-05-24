@@ -1,6 +1,5 @@
 package com.hugidonic.kstuscheduler.di
 
-import com.hugidonic.data.converters.ScheduleConverter
 import com.hugidonic.data.database.ScheduleDao
 import com.hugidonic.data.repository.ScheduleRepositoryImpl
 import com.hugidonic.domain.repositories.ScheduleRepository
@@ -18,11 +17,9 @@ class DataModule {
     @Singleton
     fun provideScheduleRepository(
         scheduleDao: ScheduleDao,
-        scheduleConverter: ScheduleConverter
     ): ScheduleRepository {
         return ScheduleRepositoryImpl(
             scheduleDao = scheduleDao,
-            scheduleConverter = scheduleConverter
         )
     }
 }

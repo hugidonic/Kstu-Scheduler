@@ -1,7 +1,6 @@
 package com.hugidonic.kstuscheduler.di
 
 import android.content.Context
-import com.hugidonic.data.converters.ScheduleConverter
 import com.hugidonic.data.database.AppDatabase
 import com.hugidonic.data.database.ScheduleDao
 import dagger.Module
@@ -29,8 +28,4 @@ class DatabaseModule {
         return appDatabase.scheduleDao()
     }
 
-    @Provides
-    fun provideScheduleConverter(): ScheduleConverter {
-        return ScheduleConverter()
-    }
 }
