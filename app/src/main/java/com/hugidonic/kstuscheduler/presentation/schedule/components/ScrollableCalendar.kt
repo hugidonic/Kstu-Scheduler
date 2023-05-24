@@ -1,4 +1,4 @@
-package com.hugidonic.kstuscheduler.presentation.components
+package com.hugidonic.kstuscheduler.presentation.schedule.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

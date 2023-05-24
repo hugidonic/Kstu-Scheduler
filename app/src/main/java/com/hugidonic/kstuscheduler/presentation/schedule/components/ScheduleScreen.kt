@@ -1,4 +1,4 @@
-package com.hugidonic.kstuscheduler.presentation.screens
+package com.hugidonic.kstuscheduler.presentation.schedule.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,8 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hugidonic.kstuscheduler.presentation.components.Header
-import com.hugidonic.kstuscheduler.presentation.components.SubjectRow
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 
 @Composable

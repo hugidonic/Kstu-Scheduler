@@ -1,4 +1,4 @@
-package com.hugidonic.kstuscheduler.presentation.components
+package com.hugidonic.kstuscheduler.presentation.schedule.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import androidx.compose.foundation.isSystemInDarkTheme
