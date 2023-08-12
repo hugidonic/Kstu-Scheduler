@@ -13,6 +13,6 @@ class ApiFactory {
         .create()
 
     companion object {
-        const val BASE_URL = "http://localhost:3000"
+        const val BASE_URL = "https://scheduler-api.vercel.app"
     }
 }
