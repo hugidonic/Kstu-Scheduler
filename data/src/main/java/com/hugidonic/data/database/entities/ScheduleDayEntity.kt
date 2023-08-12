@@ -6,9 +6,9 @@ import com.hugidonic.domain.utils.DayOfWeek
 
 @Entity("schedule_day")
 data class ScheduleDayEntity(
-	@PrimaryKey(autoGenerate = false)
-	val dayOfWeek: DayOfWeek,
-	val typeOfWeek: String,
-	val date: String,
+    @PrimaryKey(autoGenerate = false)
+    val dayOfWeek: String,
+    val typeOfWeek: String,
+    val date: String,
 )
 

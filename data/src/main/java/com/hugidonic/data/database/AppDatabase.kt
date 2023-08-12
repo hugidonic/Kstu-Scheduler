@@ -9,37 +9,37 @@ import com.hugidonic.data.database.entities.SubjectEntity
 import com.hugidonic.data.database.entities.ClassEntity
 
 @Database(
-	entities = [
-		ScheduleDayEntity::class,
-		SubjectEntity::class,
-		ClassEntity::class,
-	],
-	version = 1,
-	exportSchema = false
+    entities = [
+        ScheduleDayEntity::class,
+        SubjectEntity::class,
+        ClassEntity::class,
+    ],
+    version = 2,
+    exportSchema = false
 )
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
-	abstract fun scheduleDao(): ScheduleDao
+    abstract fun scheduleDao(): ScheduleDao
 
-	companion object {
-		private var db: AppDatabase? = null
-		private const val DB_NAME = "schedule.db"
-		private val LOCK = Any()
+    companion object {
+        private var db: AppDatabase? = null
+        private const val DB_NAME = "schedule.db"
+        private val LOCK = Any()
 
-		fun getInstance(context: Context): AppDatabase {
-			synchronized(LOCK) {
-				db?.let  { return it }
-				val instance = Room.databaseBuilder(
-					context=context,
-					klass=AppDatabase::class.java,
-					name= DB_NAME
-				)
-					.fallbackToDestructiveMigration()
-					.build()
-				db = instance
-				return instance
-			}
-		}
+        fun getInstance(context: Context): AppDatabase {
+            synchronized(LOCK) {
+                db?.let { return it }
+                val instance = Room.databaseBuilder(
+                    context = context,
+                    klass = AppDatabase::class.java,
+                    name = DB_NAME
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                db = instance
+                return instance
+            }
+        }
 
-	}
+    }
 }
