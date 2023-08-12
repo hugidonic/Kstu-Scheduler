@@ -4,5 +4,5 @@ data class ScheduleDayDto(
     val dayOfWeek: String,
     val typeOfWeek: String,
     val date: String,
-    val subjects: List<SubjectDto>,
+    val subjects: List<SubjectDto?>,
 )

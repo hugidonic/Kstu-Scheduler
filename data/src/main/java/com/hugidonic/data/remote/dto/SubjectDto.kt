@@ -1,8 +1,8 @@
 package com.hugidonic.data.remote.dto
 
 data class SubjectDto(
-    val typeOfSubject: String,
     val title: String,
+    val type: String,
     val prepod: String,
     val shortTitle: String,
     val cabinet: String,
