@@ -11,7 +11,6 @@ import com.hugidonic.data.database.entities.ClassEntity
 import com.hugidonic.data.database.entities.ScheduleDayEntity
 import com.hugidonic.data.db.scheduleDao.dummyData.DummyData
 import com.hugidonic.domain.models.SubjectModel
-import com.hugidonic.domain.utils.DayOfWeek
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -39,14 +38,14 @@ class ScheduleTest {
     @DisplayName("Should insert schedule and get day info")
     fun should_insert_schedule_day_info()= runTest {
         val scheduleDayEntity = ScheduleDayEntity(
-            dayOfWeek = DayOfWeek.Mon,
+            dayOfWeek = "Пн",
             typeOfWeek = "нечет",
             date = "12.12.2023"
         )
         dao.insertScheduleDay(scheduleDayEntity)
 
-        val dbEntityList = dao.getScheduleDay(DayOfWeek.Mon)
-        Truth.assertThat(dbEntityList).isEqualTo(scheduleDayEntity)
+        val dbEntity = dao.getScheduleDay("Пн")
+        Truth.assertThat(dbEntity).isEqualTo(scheduleDayEntity)
     }
 
     @Test
@@ -54,12 +53,12 @@ class ScheduleTest {
     fun shouldInsertListOfSubjectsScheduleDay() = runTest {
 
         val scheduleDayEntity = ScheduleDayEntity(
-            dayOfWeek = DayOfWeek.Mon,
+            dayOfWeek = "Пн",
             typeOfWeek = "нечет",
             date = "12.12.2023"
         )
         dao.insertScheduleDay(scheduleDayEntity)
-        val scheduleFromDb = dao.getScheduleDay(DayOfWeek.Mon)
+        val scheduleFromDb = dao.getScheduleDay("Пн")
         Truth.assertThat(scheduleFromDb).isNotNull()
 
         subjects.forEachIndexed { idx, subject ->
@@ -78,7 +77,7 @@ class ScheduleTest {
         val subjectsFromDb = dao.getAllSubjects()
         Truth.assertThat(subjectsFromDb).isNotNull()
 
-        val dbClasses = dao.getSubjectsAndClasses(dayOfWeek = DayOfWeek.Mon)
+        val dbClasses = dao.getSubjectsAndClasses(dayOfWeek = "Пн")
 
         Truth.assertThat(dbClasses).isNotEmpty()
         Log.d("test", "dbClasses indexes: ${dbClasses.map {it.classEntity.orderIndex}}")

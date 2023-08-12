@@ -11,7 +11,6 @@ import com.hugidonic.data.database.entities.ClassEntity
 import com.hugidonic.data.database.entities.SubjectEntity
 import com.hugidonic.data.db.scheduleDao.dummyData.DummyData
 import com.hugidonic.domain.models.SubjectModel
-import com.hugidonic.domain.utils.DayOfWeek
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -46,19 +45,19 @@ class SubjectTests {
             date="1 сен - 1 янв"
         )
         dao.insertSubject(subjectEntity)
-        val subjectFromDb = dao.searchSubject("ОИБ")[0]
+        val subjectFromDb = dao.searchSubject("ОИБ")
         Truth.assertThat(subjectFromDb).isNotNull()
 
         Log.d("test", "subjectFromDb: $subjectFromDb")
 
         val classEntity = ClassEntity(
             subjectTitle = subjectFromDb.subjectTitle,
-            dayOfWeek = DayOfWeek.Mon,
+            dayOfWeek = "Пн",
             orderIndex = 1,
         )
         dao.insertClass(classEntity)
 
-        val classesFromDb = dao.getSubjectsAndClasses(DayOfWeek.Mon)
+        val classesFromDb = dao.getSubjectsAndClasses("Пн")
         Truth.assertThat(classesFromDb).isNotEmpty()
         Log.d("test", "classesFromDb: $classesFromDb")
 
@@ -76,13 +75,13 @@ class SubjectTests {
         }
 
         val searchResultByShortTitle = dao.searchSubject("ОИБ")
-        Truth.assertThat(searchResultByShortTitle).isNotEmpty()
+        Truth.assertThat(searchResultByShortTitle).isNotNull()
 
         val searchResultBySubjectTitle = dao.searchSubject("Основы Ин")
-        Truth.assertThat(searchResultBySubjectTitle).isNotEmpty()
+        Truth.assertThat(searchResultBySubjectTitle).isNotNull()
 
         val emptySearchResult = dao.searchSubject("ASDASDASDASD")
-        Truth.assertThat(emptySearchResult).isEmpty()
+        Truth.assertThat(emptySearchResult).isNull()
     }
 
     @Test
