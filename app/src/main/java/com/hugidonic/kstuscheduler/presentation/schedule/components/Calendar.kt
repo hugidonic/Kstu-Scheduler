@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.hugidonic.domain.utils.DayOfWeek
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 import com.hugidonic.kstuscheduler.presentation.utils.bottomBorder
-import java.util.Calendar
+import java.util.*
 
 
 @Composable
@@ -57,7 +57,6 @@ fun Calendar(
 					.fillParentMaxWidth(ITEM_WIDTH)
 					.bottomBorder(activeDp, MaterialTheme.colors.primary)
 					.clickable {
-						onDayOfWeekClick(DayOfWeek.valueOf(weekDayList[idx]))
 					}
 					.padding(10.dp),
 				verticalArrangement = Arrangement.SpaceBetween,
