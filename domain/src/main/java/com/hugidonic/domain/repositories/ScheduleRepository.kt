@@ -10,10 +10,9 @@ interface ScheduleRepository {
 
     suspend fun getScheduleDayInfo(
         dayOfWeek: String,
-        isFetchFromRemote: Boolean = false
     ): Flow<Resource<ScheduleDayModel>>
 
-    suspend fun getClasses(dayOfWeek: String, isFetchFromRemote: Boolean): Flow<Resource<List<ClassModel>>>
+    suspend fun getClasses(dayOfWeek: String): Flow<Resource<List<ClassModel>>>
 
     suspend fun getSubjectDetails(subjectTitle: String): SubjectModel
 }

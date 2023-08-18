@@ -26,7 +26,6 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     override suspend fun getScheduleDayInfo(
         dayOfWeek: String,
-        isFetchFromRemote: Boolean,
     ): Flow<Resource<ScheduleDayModel>> = flow {
         emit(Resource.Loading(true))
 
@@ -38,13 +37,6 @@ class ScheduleRepositoryImpl @Inject constructor(
                     data = localScheduleInfo.toScheduleDayModel()
                 )
             )
-        }
-
-        val shouldLoadFromCache = localScheduleInfo != null && !isFetchFromRemote
-
-        if (shouldLoadFromCache) {
-            emit(Resource.Loading(false))
-            return@flow
         }
 
         val remoteScheduleDayInfoEntity = try {
@@ -75,19 +67,11 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     override suspend fun getClasses(
         dayOfWeek: String,
-        isFetchFromRemote: Boolean
     ): Flow<Resource<List<ClassModel>>> = flow {
         emit(Resource.Loading(true))
 
         val localClasses = getLocalClasses(dayOfWeek = dayOfWeek)
         emit(Resource.Success(data = localClasses))
-
-        val shouldLoadFromCache = localClasses.isNotEmpty() && !isFetchFromRemote
-
-        if (shouldLoadFromCache) {
-            emit(Resource.Loading(false))
-            return@flow
-        }
 
         val remoteSubjects = try {
             apiService.getSubjects()
@@ -99,7 +83,6 @@ class ScheduleRepositoryImpl @Inject constructor(
         remoteSubjects?.let {
             saveSubjectsToDb(subjects = remoteSubjects, dayOfWeek = dayOfWeek)
             val classesFromDb = getLocalClasses(dayOfWeek = dayOfWeek)
-            println(classesFromDb)
             emit(Resource.Success(data = classesFromDb))
         }
     }

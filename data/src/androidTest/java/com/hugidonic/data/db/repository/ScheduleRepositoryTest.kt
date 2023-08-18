@@ -39,7 +39,6 @@ class ScheduleRepositoryTest {
     @DisplayName("Should get scheduleInfo")
     fun getScheduleDayInfoTest() = runTest {
         repository.getScheduleDayInfo(
-            isFetchFromRemote = true,
             dayOfWeek = "Пн"
         ).collect { result ->
             when (result) {
@@ -65,7 +64,7 @@ class ScheduleRepositoryTest {
     @DisplayName("Should fetch classes from api and save them to DB")
     fun shouldGetRemoteSubjects() = runTest {
         repository
-            .getClasses(dayOfWeek = "Пн", isFetchFromRemote = true)
+            .getClasses(dayOfWeek = "Пн")
             .collect { result ->
                 when (result) {
                     is Resource.Success -> {

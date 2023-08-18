@@ -6,7 +6,7 @@ import com.hugidonic.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 class GetClassesUseCase(private val scheduleRepository: ScheduleRepository) {
-    suspend operator fun invoke(dayOfWeek: String, isFetchFromRemote: Boolean): Flow<Resource<List<ClassModel>>> {
-        return scheduleRepository.getClasses(dayOfWeek = dayOfWeek, isFetchFromRemote = isFetchFromRemote)
+    suspend operator fun invoke(dayOfWeek: String): Flow<Resource<List<ClassModel>>> {
+        return scheduleRepository.getClasses(dayOfWeek = dayOfWeek)
     }
 }
