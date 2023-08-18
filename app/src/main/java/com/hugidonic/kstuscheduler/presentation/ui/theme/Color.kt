@@ -19,7 +19,7 @@ val Dark100 = Color(0xFF121212)
 val Mixed100 = Color(0xFF1f1514)
 
 // For cards background color
-val Dark200 = Color(0xFF282828)
+val Dark200 = Color(0xFF222222)
 val Mixed200 = Color(0xFF342a29)
 
 // For chips buttons dropdowns background color
