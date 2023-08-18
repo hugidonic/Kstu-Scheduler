@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Modifier
-import com.hugidonic.kstuscheduler.presentation.schedule.components.ScheduleScreen
+import androidx.navigation.compose.rememberNavController
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +21,8 @@ class MainActivity : ComponentActivity() {
 					modifier = Modifier.fillMaxSize(),
 					color = MaterialTheme.colors.background
 				) {
-					ScheduleScreen()
+					val navController = rememberNavController()
+					AppNavGraph(navHostController = navController)
 				}
 			}
 		}
