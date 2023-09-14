@@ -1,18 +1,23 @@
 package com.hugidonic.domain.repositories
 
-import com.hugidonic.domain.models.ClassModel
 import com.hugidonic.domain.models.ScheduleDayModel
-import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 interface ScheduleRepository {
+    suspend fun getWeekSchedule(
+        isFetchFromApi: Boolean,
+        typeOfWeek: String = getTypeOfWeek()
+    ): Flow<Resource<List<ScheduleDayModel>>>
 
-    suspend fun getScheduleDayInfo(
+    suspend fun getScheduleDayFromDB(
+        typeOfWeek: String,
         dayOfWeek: String,
-    ): Flow<Resource<ScheduleDayModel>>
+    ): ScheduleDayModel?
 
-    suspend fun getClasses(dayOfWeek: String): Flow<Resource<List<ClassModel>>>
-
-    suspend fun getSubjectDetails(subjectTitle: String): SubjectModel
+    fun getTypeOfWeek(): String
+    fun getCurrentDate(): LocalDate
 }
