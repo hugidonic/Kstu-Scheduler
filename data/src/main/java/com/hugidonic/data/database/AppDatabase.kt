@@ -6,20 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.hugidonic.data.database.entities.ScheduleDayEntity
 import com.hugidonic.data.database.entities.SubjectEntity
-import com.hugidonic.data.database.entities.ClassEntity
 
 @Database(
     entities = [
         ScheduleDayEntity::class,
         SubjectEntity::class,
-        ClassEntity::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun scheduleDao(): ScheduleDao
+    abstract fun subjectDao(): SubjectDao
 
     companion object {
         private var db: AppDatabase? = null
