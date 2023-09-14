@@ -1,8 +1,17 @@
 package com.hugidonic.data.remote.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class ScheduleDayDto(
-    val dayOfWeek: String,
-    val typeOfWeek: String,
+    @SerializedName("date")
     val date: String,
-    val subjects: List<SubjectDto?>,
+
+    @SerializedName("dayOfWeek")
+    val dayOfWeek: String,
+
+    @SerializedName("subjects")
+    val subjects: List<SubjectDto>,
+
+    @SerializedName("typeOfWeek")
+    val typeOfWeek: String
 )
