@@ -13,10 +13,12 @@ fun ScheduleRoute(
     val uiState by coordinator.screenStateFlow.collectAsStateWithLifecycle(ScheduleState())
 
     // UI Actions
-    val actions = rememberScheduleActions(coordinator)
+    val uiActions = rememberScheduleActions(coordinator)
 
     // UI Rendering
-    ScheduleScreen(uiState, actions)
+    ProvideScheduleActions(actions = uiActions) {
+        ScheduleScreen(uiState, uiActions)
+    }
 }
 
 
@@ -24,7 +26,9 @@ fun ScheduleRoute(
 fun rememberScheduleActions(coordinator: ScheduleCoordinator): ScheduleActions {
     return remember(coordinator) {
         ScheduleActions(
-            onClick = coordinator::doStuff
+            onDayOfWeekClick = coordinator::onDayOfWeekClick,
+            onSubjectClick = coordinator::onSubjectClick,
+            onChangeTypeOfWeek = coordinator::onChangeTypeOfWeek
         )
     }
 }
