@@ -3,31 +3,30 @@ package com.hugidonic.kstuscheduler.presentation.schedule
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.hugidonic.domain.models.ClassModel
 import com.hugidonic.domain.models.ScheduleDayModel
+import com.hugidonic.domain.models.SubjectModel
+import kotlin.reflect.KFunction
 
 
 /**
  * UI State that represents ScheduleScreen
  **/
 data class ScheduleState(
-    val todayDayOfWeek: String? = null,
-    val scheduleDay: ScheduleDayModel? = null,
-    val classes: List<ClassModel>? = null,
-    val errorMessage: String? = null,
+    val weekScheduleDays: List<ScheduleDayModel> = emptyList(),
+    val currentTypeOfWeek: String = "",
+    val activeScheduleDayIdx: Int = 0,
+    val errorMessage: String = "",
     val isLoading: Boolean = false,
 )
-
-sealed class UIEvent {
-    class ShowSnackBar(val message: String): UIEvent()
-}
 
 /**
  * Schedule Actions emitted from the UI Layer
  * passed to the coordinator to handle
  **/
 data class ScheduleActions(
-    val onClick: () -> Unit = {}
+    val onDayOfWeekClick: (dayOfWeekIdx: Int) -> Unit = {},
+    val onSubjectClick: (subject: SubjectModel) -> Unit = {},
+    val onChangeTypeOfWeek: () -> Unit = {},
 )
 
 /**
