@@ -17,14 +17,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 import com.hugidonic.kstuscheduler.presentation.ui.theme.Red100
 import com.hugidonic.kstuscheduler.presentation.ui.theme.White
+import com.hugidonic.kstuscheduler.presentation.utils.DummyData
 
 @Composable
 fun SubjectCard(
     modifier: Modifier = Modifier,
-    subjectTitle: String = "Основы информационной безопасности",
+    subjectInfo: SubjectModel,
 ) {
     Card(
         modifier = modifier,
@@ -35,24 +37,23 @@ fun SubjectCard(
             modifier = Modifier.padding(15.dp),
         ) {
             Text(
-                text = subjectTitle,
+                text = subjectInfo.title,
                 maxLines = 2,
-                color = if (isSystemInDarkTheme()) White else Red100,
                 overflow = TextOverflow.Ellipsis,
+                color = if (isSystemInDarkTheme()) White else Red100,
                 style = MaterialTheme.typography.h1,
             )
             Row(modifier = Modifier.padding(top = 10.dp)) {
                 SubjectInfoColumn(
                     modifier = Modifier.weight(1f),
-                    subtitle1 = "Лекция",
-                    subtitle2 = "Богомолов В.А."
+                    subtitle1 = subjectInfo.type,
+                    subtitle2 = subjectInfo.prepod
                 )
                 SubjectInfoColumn(
                     modifier = Modifier.weight(1f),
-                    subtitle1 = "Ауд: И-1-209",
-                    subtitle2 = "1 сен - 1 янв"
+                    subtitle1 = subjectInfo.cabinet,
+                    subtitle2 = subjectInfo.duration
                 )
-
             }
         }
     }
@@ -68,13 +69,30 @@ fun SubjectInfoColumn(
         modifier = modifier
     ) {
         Text(
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             text = subtitle1,
             style = MaterialTheme.typography.subtitle1,
         )
         Text(
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             text = subtitle2,
             style = MaterialTheme.typography.caption,
         )
+    }
+}
+
+@Composable
+fun PreviewSubjectCard() {
+    MainAppTheme {
+        Surface(
+            modifier = Modifier
+                .background(MaterialTheme.colors.background)
+        ) {
+            val subject = DummyData.weekSchedule[3].subjects[0]
+            SubjectCard(subjectInfo = subject)
+        }
     }
 }
 
@@ -84,16 +102,7 @@ fun SubjectInfoColumn(
 )
 @Composable
 fun PreviewSubjectCardDark() {
-    MainAppTheme {
-        Surface(
-            modifier = Modifier
-                .background(MaterialTheme.colors.background)
-        ) {
-            SubjectCard(
-                modifier = Modifier.padding(20.dp)
-            )
-        }
-    }
+    PreviewSubjectCard()
 }
 
 @Preview(
@@ -103,14 +112,5 @@ fun PreviewSubjectCardDark() {
 )
 @Composable
 fun PreviewSubjectCardLight() {
-    MainAppTheme {
-        Surface(
-            modifier = Modifier
-                .background(MaterialTheme.colors.background)
-        ) {
-            SubjectCard(
-                modifier = Modifier.padding(20.dp)
-            )
-        }
-    }
+    PreviewSubjectCard()
 }
