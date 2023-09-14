@@ -15,7 +15,6 @@ fun AppNavGraph(
 ) {
     NavHost(navController = navHostController, startDestination = "schedule") {
         composable("schedule") {
-            val scheduleViewModel = hiltViewModel<ScheduleViewModel>()
             ScheduleRoute()
         }
     }
