@@ -1,6 +1,7 @@
 package com.hugidonic.kstuscheduler.di
 
 import com.hugidonic.data.database.ScheduleDao
+import com.hugidonic.data.database.SubjectDao
 import com.hugidonic.data.remote.ApiFactory
 import com.hugidonic.data.remote.ApiService
 import com.hugidonic.data.repository.ScheduleRepositoryImpl
@@ -25,11 +26,13 @@ class DataModule {
     @Singleton
     fun provideScheduleRepository(
         scheduleDao: ScheduleDao,
+        subjectDao: SubjectDao,
         apiService: ApiService
     ): ScheduleRepository {
         return ScheduleRepositoryImpl(
             scheduleDao = scheduleDao,
-            apiService = apiService
+            subjectDao = subjectDao,
+            apiService = apiService,
         )
     }
 }
