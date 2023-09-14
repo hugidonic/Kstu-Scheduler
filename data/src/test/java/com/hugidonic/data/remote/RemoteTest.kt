@@ -12,41 +12,20 @@ class RemoteTest {
     private lateinit var api: ApiService
 
     @BeforeEach
-    fun before() {
+    fun beforeEach() {
         api = ApiFactory().scheduleApi
     }
 
-    @AfterEach
-    fun aftereach() {
-        println('\n')
-    }
-
     @Test
-    @DisplayName("All subjects should come as SubjectDto List")
-    fun remoteSubjects() = runTest {
-        val subjectsListDto: List<SubjectDto?> = api.getSubjects()
-        println(subjectsListDto.toString())
-        Truth.assertThat(subjectsListDto).isNotEmpty()
-    }
+    fun `Should get week schedule for chet week`() = runTest {
+        val weekSchedule = api.getChetWeekSchedule()
 
-    @Test
-    @DisplayName("Should contain schedule day info and subjects for this day")
-    fun remoteFullSchedule() = runTest {
-        val scheduleDayDto = api.getFullSchedule()
-        println(scheduleDayDto.toString())
-        Truth.assertThat(scheduleDayDto.dayOfWeek).isNotNull()
-        Truth.assertThat(scheduleDayDto.date).isNotNull()
-        Truth.assertThat(scheduleDayDto.typeOfWeek).isNotNull()
-        Truth.assertThat(scheduleDayDto.subjects).isNotEmpty()
-    }
-
-    @Test
-    @DisplayName("Should contain schedule day info")
-    fun remoteScheduleDayInfo() = runTest {
-        val scheduleDayDto = api.getScheduleDayInfo()
-        println(scheduleDayDto.toString())
-        Truth.assertThat(scheduleDayDto.dayOfWeek).isNotNull()
-        Truth.assertThat(scheduleDayDto.date).isNotNull()
-        Truth.assertThat(scheduleDayDto.typeOfWeek).isNotNull()
+        Truth.assertThat(weekSchedule).isNotEmpty()
+        weekSchedule.forEach {
+            Truth.assertThat(it.typeOfWeek).isNotEmpty()
+            Truth.assertThat(it.dayOfWeek).isNotEmpty()
+            Truth.assertThat(it.date).isNotEmpty()
+            Truth.assertThat(it.subjects).isNotNull()
+        }
     }
 }
