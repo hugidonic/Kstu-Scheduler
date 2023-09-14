@@ -4,30 +4,38 @@ import com.hugidonic.data.database.entities.SubjectEntity
 import com.hugidonic.data.remote.dto.SubjectDto
 import com.hugidonic.domain.models.SubjectModel
 
-fun SubjectDto.toSubjectEntity(): SubjectEntity = SubjectEntity(
+fun SubjectDto.toSubjectEntity(scheduleDayId: String): SubjectEntity = SubjectEntity(
     subjectTitle = title,
-    typeOfSubject = type,
+    type = type,
     prepod = prepod,
     shortTitle = shortTitle,
     cabinet = cabinet,
-    date = date,
+    duration = duration,
+    startTime = startTime,
+    endTime = endTime,
+    scheduleDayId = scheduleDayId
 )
 
-fun SubjectModel.toSubjectEntity(): SubjectEntity = SubjectEntity(
-    subjectTitle = subjectTitle,
-    typeOfSubject = typeOfSubject,
+fun SubjectModel.toSubjectEntity(scheduleDayId: String): SubjectEntity = SubjectEntity(
+    subjectTitle = title,
+    type = type,
     prepod = prepod,
     shortTitle = shortTitle,
     cabinet = cabinet,
-    date = date,
+    duration = duration,
+    startTime = startTime,
+    endTime = endTime,
+    scheduleDayId = scheduleDayId
 )
 
 fun SubjectEntity.toSubjectModel(): SubjectModel = SubjectModel(
-    subjectTitle = subjectTitle,
-    typeOfSubject = typeOfSubject,
+    title = subjectTitle,
+    type = type,
     prepod = prepod,
     shortTitle = shortTitle,
     cabinet = cabinet,
-    date = date,
+    duration = duration,
+    startTime = startTime,
+    endTime = endTime,
 )
 
