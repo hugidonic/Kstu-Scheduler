@@ -1,71 +1,95 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hugidonic.domain.usecases.GetClassesUseCase
-import com.hugidonic.domain.usecases.GetScheduleDayInfoUseCase
+import com.hugidonic.domain.usecases.GetCurrentDateUseCase
+import com.hugidonic.domain.usecases.GetTypeOfWeekUseCase
+import com.hugidonic.domain.usecases.GetWeekScheduleDayUseCase
 import com.hugidonic.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.util.*
+import javax.inject.Inject
 
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    getScheduleDayInfoUseCase: GetScheduleDayInfoUseCase,
-    getClassesUseCase: GetClassesUseCase,
+    val getWeekScheduleDayUseCase: GetWeekScheduleDayUseCase,
+    getTypeOfWeekUseCase: GetTypeOfWeekUseCase,
+    getCurrentDateUseCase: GetCurrentDateUseCase
 ) : ViewModel() {
 
     private val _stateFlow: MutableStateFlow<ScheduleState> = MutableStateFlow(ScheduleState())
     val stateFlow: StateFlow<ScheduleState> = _stateFlow.asStateFlow()
 
-    private val _eventFlow = MutableSharedFlow<UIEvent>()
-    val eventFlow = _eventFlow.asSharedFlow()
-
-    val weekDayList = listOf(
-        "Пн",
-        "Вт",
-        "Ср",
-        "Чт",
-        "Пт",
-        "Сб",
-    )
-
-    private val calendar = Calendar.getInstance()
-    private val curDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1 // 1-6 where 1 is monday and 6 is saturday
-    private val dayOfWeek = weekDayList[curDayOfWeek]
+    private var currentDayOfWeek = getCurrentDateUseCase().dayOfWeek.ordinal
+    private val currentTypeOfWeek = getTypeOfWeekUseCase()
 
     init {
         _stateFlow.value = _stateFlow.value.copy(
-            todayDayOfWeek = dayOfWeek
+            activeScheduleDayIdx = currentDayOfWeek,
+            currentTypeOfWeek = currentTypeOfWeek
         )
 
+        getWeekSchedule(currentTypeOfWeek)
+    }
+
+    private fun getWeekSchedule(typeOfWeek: String = currentTypeOfWeek) {
         viewModelScope.launch {
-            getClassesUseCase(dayOfWeek = dayOfWeek).collectLatest {result ->
-                when(result) {
-                    is Resource.Success -> {
-                        _stateFlow.value = _stateFlow.value.copy(
-                            classes = result.data,
-                        )
-                    }
-                    is Resource.Error -> {
-                        _stateFlow.value = _stateFlow.value.copy(
-                            classes = result.data,
-                            errorMessage = result.message,
-                        )
-                    }
-                    is Resource.Loading -> {
-                        _stateFlow.value = _stateFlow.value.copy(
-                            classes = result.data,
-                            errorMessage = result.message,
-                            isLoading = result.isLoading,
-                        )
+            getWeekScheduleDayUseCase(isFetchFromApi = true, typeOfWeek = typeOfWeek)
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            Log.d("viewModel data", result.data.toString())
+                            result.data?.let {
+                                _stateFlow.value = _stateFlow.value.copy(
+                                    weekScheduleDays = it,
+                                )
+                            }
+                        }
+
+                        is Resource.Error -> {
+                            result.data?.let {
+                                _stateFlow.value = _stateFlow.value.copy(
+                                    errorMessage = result.message ?: "",
+                                )
+                            }
+                        }
+
+                        is Resource.Loading -> {
+                            Log.d("loading", result.isLoading.toString())
+                            _stateFlow.value = _stateFlow.value.copy(
+                                isLoading = result.isLoading
+                            )
+                        }
                     }
                 }
-            }
+        }
+    }
+
+    fun changeTypeOfWeek() {
+        if (_stateFlow.value.currentTypeOfWeek == "Чет") {
+            _stateFlow.value = _stateFlow.value.copy(
+                currentTypeOfWeek = "Нечет"
+            )
+            getWeekSchedule(typeOfWeek = "Нечет")
+        } else {
+            _stateFlow.value = _stateFlow.value.copy(
+                currentTypeOfWeek = "Чет"
+            )
+            getWeekSchedule(typeOfWeek = "Чет")
+        }
+    }
+
+    fun onDayOfWeekClick(dayOfWeekIdx: Int) {
+        if (dayOfWeekIdx in 0..5) {
+            _stateFlow.value = _stateFlow.value.copy(
+                activeScheduleDayIdx = dayOfWeekIdx
+            )
         }
     }
 }
