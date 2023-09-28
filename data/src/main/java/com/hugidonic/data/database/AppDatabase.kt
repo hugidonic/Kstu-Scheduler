@@ -12,7 +12,7 @@ import com.hugidonic.data.database.entities.SubjectEntity
         ScheduleDayEntity::class,
         SubjectEntity::class,
     ],
-    version = 3,
+    version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
