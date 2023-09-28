@@ -15,6 +15,8 @@ data class ScheduleState(
     val weekScheduleDays: List<ScheduleDayModel> = emptyList(),
     val currentTypeOfWeek: String = "",
     val activeScheduleDayIdx: Int = 0,
+    val group: String = "1211-22",
+
     val errorMessage: String = "",
     val isLoading: Boolean = false,
 )
@@ -27,6 +29,7 @@ data class ScheduleActions(
     val onDayOfWeekClick: (dayOfWeekIdx: Int) -> Unit = {},
     val onSubjectClick: (subject: SubjectModel) -> Unit = {},
     val onChangeTypeOfWeek: () -> Unit = {},
+    val onEditGroup: (newGroup: String) -> Unit = {},
 )
 
 /**
