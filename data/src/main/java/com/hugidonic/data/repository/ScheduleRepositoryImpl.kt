@@ -1,6 +1,5 @@
 package com.hugidonic.data.repository
 
-import android.util.Log
 import com.hugidonic.data.converters.toModel
 import com.hugidonic.data.converters.toScheduleDayEntity
 import com.hugidonic.data.converters.toSubjectEntity
@@ -42,17 +41,16 @@ class ScheduleRepositoryImpl @Inject constructor(
                 subjects = it.subjects.map { subjectEntity -> subjectEntity.toSubjectModel() }
             )
         }
-        Log.d("local", "$localWeekSchedule")
 
         emit(
             Resource.Success(
                 data = localWeekSchedule
             )
         )
+        emit(Resource.Loading(false))
 
         val shouldLoadFromCache = localWeekSchedule.isNotEmpty() && !isFetchFromApi
         if (shouldLoadFromCache) {
-            Log.d("data", "Got data only from local db")
             return@flow
         }
 
@@ -62,8 +60,6 @@ class ScheduleRepositoryImpl @Inject constructor(
             } else {
                 apiService.getNechetWeekSchedule()
             }
-
-            Log.d("remote", "$weekScheduleDto")
             saveWeekScheduleDtoToDb(weekScheduleDto = weekScheduleDto)
         } catch (e: IOException) {
             emit(Resource.Error(data = localWeekSchedule, message = "Something went wrong..."))
@@ -77,7 +73,6 @@ class ScheduleRepositoryImpl @Inject constructor(
         }
 
         val newWeekScheduleEntities = scheduleDao.getWeekScheduleByType(typeOfWeek = typeOfWeek)
-        Log.d("new local", "$newWeekScheduleEntities")
 
         val newWeekSchedule = newWeekScheduleEntities.map {
             ScheduleDayModel(
@@ -88,8 +83,6 @@ class ScheduleRepositoryImpl @Inject constructor(
                 subjects = it.subjects.map { subjectEntity -> subjectEntity.toSubjectModel() }
             )
         }
-
-        Log.d("localAfterRemote", "$newWeekSchedule")
 
         emit(
             Resource.Success(
@@ -107,7 +100,7 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     private suspend fun saveWeekScheduleDtoToDb(weekScheduleDto: List<ScheduleDayDto>) {
         scheduleDao.clearScheduleDayTable(typeOfWeek = weekScheduleDto[0].typeOfWeek)
-
+        subjectDao.clearSubjectTable()
         weekScheduleDto.forEach { scheduleDayDto ->
             saveScheduleDayDtoToDb(scheduleDayDto = scheduleDayDto)
             saveSubjectsDtoToDb(scheduleDayDto = scheduleDayDto)
@@ -143,7 +136,7 @@ class ScheduleRepositoryImpl @Inject constructor(
         val periodDays = Period.between(firstWeekMonday, currentDate).days
         val weeks = periodDays / 7
 
-        return if (weeks + 1 % 2 == 0) "чет" else "нечет"
+        return if ((weeks + 1) % 2 == 0) "Чет" else "Нечет"
     }
 
     override fun getCurrentDate(): LocalDate {

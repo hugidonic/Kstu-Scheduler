@@ -37,5 +37,6 @@ fun SubjectEntity.toSubjectModel(): SubjectModel = SubjectModel(
     duration = duration,
     startTime = startTime,
     endTime = endTime,
+    scheduleDayId = scheduleDayId
 )
 
