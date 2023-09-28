@@ -1,6 +1,5 @@
 package com.hugidonic.data.db.scheduleDao.schedule
 
-import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth

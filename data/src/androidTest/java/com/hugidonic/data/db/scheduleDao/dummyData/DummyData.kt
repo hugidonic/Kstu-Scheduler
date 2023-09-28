@@ -19,6 +19,7 @@ object DummyData {
             date = "08.11.2022",
             subjects = listOf(
                 SubjectModel(
+                    scheduleDayId = "Нечет/Вт",
                     title = "Элективные курсы по физической культуре и спорту. Элективные курсы проходят в спортивном комплексе \"МИРАС\"",
                     shortTitle = "Физра",
                     type = "Практика",
@@ -37,6 +38,7 @@ object DummyData {
             scheduleDayId = "Нечет/Ср",
             subjects = listOf(
                 SubjectModel(
+                    scheduleDayId = "Нечет/Ср",
                     title = "Средства и системы технического обеспечения обработки, хранения и передачи информации",
                     shortTitle = "СИСТО",
                     type = "Лекция",
@@ -47,6 +49,7 @@ object DummyData {
                     endTime = "12:50"
                 ),
                 SubjectModel(
+                    scheduleDayId = "Нечет/Ср",
                     title = "Средства и системы технического обеспечения обработки, хранения и передачи информации",
                     shortTitle = "СИСТО",
                     type = "Лабораторная Работа",
@@ -57,6 +60,7 @@ object DummyData {
                     endTime = "14:30"
                 ),
                 SubjectModel(
+                    scheduleDayId = "Нечет/Ср",
                     title = "Теория вероятностей и математическая статистика",
                     shortTitle = "ТВИМС",
                     type = "Лекция",
@@ -67,6 +71,7 @@ object DummyData {
                     endTime = "17:50"
                 ),
                 SubjectModel(
+                    scheduleDayId = "Нечет/Ср",
                     title = "Дискретная математика",
                     shortTitle = "ДМ",
                     type = "Лабораторная Работа",
@@ -85,6 +90,7 @@ object DummyData {
             date = "03.11.2022",
             subjects = listOf(
                 SubjectModel(
+                    scheduleDayId = "Нечет/Чт",
                     title = "Информационные технологии в информационной безопасности",
                     shortTitle = "ИТВИБ",
                     type = "Лабораторная Работа",
@@ -95,6 +101,7 @@ object DummyData {
                     endTime = "11:10"
                 ),
                 SubjectModel(
+                    scheduleDayId = "Нечет/Чт",
                     title = "Информационные технологии в информационной безопасности",
                     shortTitle = "ИТВИБ",
                     type = "Лекция",
@@ -105,6 +112,7 @@ object DummyData {
                     endTime = "12:50"
                 ),
                 SubjectModel(
+                    scheduleDayId = "Нечет/Чт",
                     title = "Основы информационной безопасности",
                     shortTitle = "ОИБ",
                     type = "Лабораторная Работа",
@@ -123,6 +131,7 @@ object DummyData {
             date = "04.11.2022",
             subjects = listOf(
                 SubjectModel(
+                    scheduleDayId = "Нечет/Пт",
                     title = "Элективные курсы по физической культуре и спорту. Элективные курсы проходят в спортивном комплексе \"МИРАС\"",
                     shortTitle = "Физра",
                     type = "Практика",
@@ -133,6 +142,7 @@ object DummyData {
                     endTime = "14:30"
                 ),
                 SubjectModel(
+                    scheduleDayId = "Нечет/Пт",
                     title = "Теория вероятностей и математическая статистика",
                     shortTitle = "ТВИМС",
                     type = "Практика",
