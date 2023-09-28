@@ -5,6 +5,8 @@ import androidx.compose.ui.graphics.Color
 val Black = Color(0xFF333333)
 val White = Color(0xFFEEEEEE)
 val OffWhite = Color(0xFFEDEEF0)
+val DarkSurface = Color(0xFF3F3F3F)
+val LightSurface = Color(0xFFD9D9D9)
 val Gray = Color.Gray
 
 val Red100 = Color(0xFF931C1F)

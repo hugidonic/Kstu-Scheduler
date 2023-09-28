@@ -34,9 +34,12 @@ fun Header(
 				verticalAlignment = Alignment.CenterVertically,
 				modifier = Modifier
 					.fillMaxWidth()
-					.padding(horizontal = 10.dp, vertical = 18.dp)
+					.padding(horizontal = 10.dp, vertical = 12.dp)
 			) {
-				Text(text="Группа: 1211-22")
+				GroupTextField(
+					group = state.group,
+					editGroup = actions.onEditGroup
+				)
 				WeekTypeSwitcher(
 					currentType = state.currentTypeOfWeek,
 					onChangeType = actions.onChangeTypeOfWeek

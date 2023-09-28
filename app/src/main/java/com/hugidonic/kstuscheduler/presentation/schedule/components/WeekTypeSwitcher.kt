@@ -12,9 +12,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hugidonic.kstuscheduler.presentation.ui.theme.DarkSurface
+import com.hugidonic.kstuscheduler.presentation.ui.theme.LightSurface
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 
 @Composable
@@ -23,11 +24,12 @@ fun WeekTypeSwitcher(
     currentType: String,
     onChangeType: () -> Unit,
 ) {
+    val bg = if (isSystemInDarkTheme()) DarkSurface else LightSurface
     Box(
         modifier = modifier
             .clip(MaterialTheme.shapes.large)
             .background(
-                if (isSystemInDarkTheme()) Color.DarkGray else Color.LightGray
+                bg
             )
             .padding(horizontal = 20.dp, vertical = 6.dp)
             .clickable {

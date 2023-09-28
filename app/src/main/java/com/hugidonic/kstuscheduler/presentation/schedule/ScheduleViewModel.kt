@@ -44,7 +44,6 @@ class ScheduleViewModel @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            Log.d("viewModel data", result.data.toString())
                             result.data?.let {
                                 _stateFlow.value = _stateFlow.value.copy(
                                     weekScheduleDays = it,
@@ -61,7 +60,6 @@ class ScheduleViewModel @Inject constructor(
                         }
 
                         is Resource.Loading -> {
-                            Log.d("loading", result.isLoading.toString())
                             _stateFlow.value = _stateFlow.value.copy(
                                 isLoading = result.isLoading
                             )
@@ -83,6 +81,13 @@ class ScheduleViewModel @Inject constructor(
             )
             getWeekSchedule(typeOfWeek = "Чет")
         }
+    }
+
+    fun editGroup(newGroup: String) {
+        _stateFlow.value = _stateFlow.value.copy(
+            group = newGroup
+        )
+        getWeekSchedule(typeOfWeek = currentTypeOfWeek)
     }
 
     fun onDayOfWeekClick(dayOfWeekIdx: Int) {

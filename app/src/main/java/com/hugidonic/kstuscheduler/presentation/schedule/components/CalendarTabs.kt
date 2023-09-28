@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
-import com.hugidonic.kstuscheduler.presentation.utils.WEEKDAYS_LIST
+import com.hugidonic.kstuscheduler.presentation.utils.Constants
 
 @Composable
 fun CalendarTabs(
@@ -25,7 +25,7 @@ fun CalendarTabs(
     val ITEM_WIDTH: Float = 1 / WEEK_DAYS_COUNT.toFloat()
 
     val selectedTabIndex = minOf(
-        WEEKDAYS_LIST.count(),
+        Constants.WEEKDAYS_LIST.count(),
         currentPage
     )
 
@@ -40,7 +40,7 @@ fun CalendarTabs(
             )
         },
     ) {
-        WEEKDAYS_LIST.forEachIndexed { idx, weekDayName ->
+        Constants.WEEKDAYS_LIST.forEachIndexed { idx, weekDayName ->
             Tab(
                 enabled = true,
                 selected = currentPage == idx,
@@ -51,7 +51,7 @@ fun CalendarTabs(
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(10.dp),
+                        .padding(vertical = 14.dp),
                     verticalArrangement = Arrangement.SpaceBetween,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {

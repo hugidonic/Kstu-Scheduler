@@ -43,8 +43,10 @@ fun ScheduleScreen(
             SubjectsList(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+//                    .padding(16.dp)
+                ,
                 subjects = state.weekScheduleDays[state.activeScheduleDayIdx].subjects,
+                scheduleDate = state.weekScheduleDays[state.activeScheduleDayIdx].date
             )
         }
     }
@@ -59,7 +61,7 @@ fun PreviewScheduleScreen() {
                     isLoading = false,
                     weekScheduleDays = DummyData.weekSchedule,
                     activeScheduleDayIdx = 0,
-                    currentTypeOfWeek = "Чет"
+                    currentTypeOfWeek = "Нечет"
                 ),
                 actions = ScheduleActions()
             )

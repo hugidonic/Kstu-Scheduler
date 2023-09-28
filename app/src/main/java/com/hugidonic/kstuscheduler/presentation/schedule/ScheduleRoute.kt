@@ -28,7 +28,8 @@ fun rememberScheduleActions(coordinator: ScheduleCoordinator): ScheduleActions {
         ScheduleActions(
             onDayOfWeekClick = coordinator::onDayOfWeekClick,
             onSubjectClick = coordinator::onSubjectClick,
-            onChangeTypeOfWeek = coordinator::onChangeTypeOfWeek
+            onChangeTypeOfWeek = coordinator::onChangeTypeOfWeek,
+            onEditGroup = coordinator::onEditGroupClick
         )
     }
 }

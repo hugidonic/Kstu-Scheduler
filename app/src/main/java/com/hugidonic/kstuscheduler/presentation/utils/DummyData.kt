@@ -10,7 +10,52 @@ object DummyData {
             typeOfWeek = "Нечет",
             date = "07.10.2022",
             scheduleDayId = "Нечет/Пн",
-            subjects = emptyList()
+            subjects = listOf(
+                SubjectModel(
+                    title = "Средства и системы технического обеспечения обработки, хранения и передачи информации",
+                    shortTitle = "СИСТО",
+                    type = "Лекция",
+                    prepod = "Ильин Г.И.",
+                    cabinet = "И-1-209",
+                    duration = "1 сен - 1 янв",
+                    startTime = "11:20",
+                    endTime = "12:50",
+                    scheduleDayId = "Нечет/Ср",
+                ),
+                SubjectModel(
+                    title = "Средства и системы технического обеспечения обработки, хранения и передачи информации",
+                    shortTitle = "СИСТО",
+                    type = "Лабораторная Работа",
+                    prepod = "Ильин Г.И.",
+                    cabinet = "И-1-204",
+                    duration = "1 сен - 1 янв",
+                    startTime = "13:00",
+                    endTime = "14:30",
+                    scheduleDayId = "Нечет/Ср",
+                ),
+                SubjectModel(
+                    title = "Теория вероятностей и математическая статистика",
+                    shortTitle = "ТВИМС",
+                    type = "Лекция",
+                    prepod = "Хайруллин М.Х.",
+                    cabinet = "Д-240",
+                    duration = "1 сен - 1 янв",
+                    startTime = "16:20",
+                    endTime = "17:50",
+                    scheduleDayId = "Нечет/Ср",
+                ),
+                SubjectModel(
+                    title = "Дискретная математика",
+                    shortTitle = "ДМ",
+                    type = "Лабораторная Работа",
+                    prepod = "Климова А.С.",
+                    cabinet = "Д-505",
+                    duration = "1 сен - 1 янв",
+                    startTime = "18:00",
+                    endTime = "19:30",
+                    scheduleDayId = "Нечет/Ср",
+                ),
+            ),
         ),
         ScheduleDayModel(
             dayOfWeek = "Вт",
@@ -26,7 +71,8 @@ object DummyData {
                     cabinet = "",
                     duration = "1 сен - 1 янв",
                     startTime = "09:40",
-                    endTime = "11:10"
+                    endTime = "11:10",
+                    scheduleDayId = "Нечет/Вт",
                 )
             )
         ),
@@ -44,7 +90,8 @@ object DummyData {
                     cabinet = "И-1-209",
                     duration = "1 сен - 1 янв",
                     startTime = "11:20",
-                    endTime = "12:50"
+                    endTime = "12:50",
+                    scheduleDayId = "Нечет/Ср",
                 ),
                 SubjectModel(
                     title = "Средства и системы технического обеспечения обработки, хранения и передачи информации",
@@ -54,7 +101,8 @@ object DummyData {
                     cabinet = "И-1-204",
                     duration = "1 сен - 1 янв",
                     startTime = "13:00",
-                    endTime = "14:30"
+                    endTime = "14:30",
+                    scheduleDayId = "Нечет/Ср",
                 ),
                 SubjectModel(
                     title = "Теория вероятностей и математическая статистика",
@@ -64,7 +112,8 @@ object DummyData {
                     cabinet = "Д-240",
                     duration = "1 сен - 1 янв",
                     startTime = "16:20",
-                    endTime = "17:50"
+                    endTime = "17:50",
+                    scheduleDayId = "Нечет/Ср",
                 ),
                 SubjectModel(
                     title = "Дискретная математика",
@@ -74,7 +123,8 @@ object DummyData {
                     cabinet = "Д-505",
                     duration = "1 сен - 1 янв",
                     startTime = "18:00",
-                    endTime = "19:30"
+                    endTime = "19:30",
+                    scheduleDayId = "Нечет/Ср",
                 ),
             ),
         ),
@@ -92,7 +142,8 @@ object DummyData {
                     cabinet = "П-7",
                     duration = "1 сен - 4 дек",
                     startTime = "09:40",
-                    endTime = "11:10"
+                    endTime = "11:10",
+                    scheduleDayId = "Нечет/Чт",
                 ),
                 SubjectModel(
                     title = "Информационные технологии в информационной безопасности",
@@ -102,7 +153,8 @@ object DummyData {
                     cabinet = "П-7",
                     duration = "1 сен - 4 дек",
                     startTime = "11:20",
-                    endTime = "12:50"
+                    endTime = "12:50",
+                    scheduleDayId = "Нечет/Чт",
                 ),
                 SubjectModel(
                     title = "Основы информационной безопасности",
@@ -112,7 +164,8 @@ object DummyData {
                     cabinet = "И-1-204",
                     duration = "1 сен - 4 дек",
                     startTime = "13:00",
-                    endTime = "14:30"
+                    endTime = "14:30",
+                    scheduleDayId = "Нечет/Чт",
                 )
             ),
         ),
@@ -130,7 +183,8 @@ object DummyData {
                     cabinet = "",
                     duration = "1 сен - 1 янв",
                     startTime = "13:00",
-                    endTime = "14:30"
+                    endTime = "14:30",
+                    scheduleDayId = "Нечет/Пт",
                 ),
                 SubjectModel(
                     title = "Теория вероятностей и математическая статистика",
@@ -140,7 +194,8 @@ object DummyData {
                     cabinet = "Д-104а",
                     duration = "31 окт - 1 янв",
                     startTime = "16:20",
-                    endTime = "17:50"
+                    endTime = "17:50",
+                    scheduleDayId = "Нечет/Пт",
                 )
             ),
         ),

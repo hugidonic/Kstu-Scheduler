@@ -3,12 +3,10 @@ package com.hugidonic.data.database.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "subject")
+@Entity(tableName = "subject", primaryKeys = ["subjectTitle", "scheduleDayId", "startTime"])
 data class SubjectEntity(
-    @PrimaryKey(autoGenerate = false)
-    val subjectTitle: String,
     val scheduleDayId: String,
-
+    val subjectTitle: String,
     val type: String,
     val prepod: String,
     val shortTitle: String,

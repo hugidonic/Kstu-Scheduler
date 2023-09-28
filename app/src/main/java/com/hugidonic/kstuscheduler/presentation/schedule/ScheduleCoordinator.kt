@@ -35,6 +35,17 @@ class ScheduleCoordinator(
     fun onSubjectClick(subject: SubjectModel) {
         // TODO handle subject click
     }
+
+    fun onEditGroupClick(newGroup: String) {
+        val validated = validateGroup(newGroup)
+        viewModel.editGroup(newGroup = validated)
+    }
+}
+
+fun validateGroup(newGroup: String): String {
+    var validated = newGroup.trim()
+    validated = validated.replace("\n", "")
+    return validated
 }
 
 @OptIn(ExperimentalFoundationApi::class)
