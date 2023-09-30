@@ -8,7 +8,9 @@ import com.hugidonic.data.database.ScheduleDao
 import com.hugidonic.data.database.SubjectDao
 import com.hugidonic.data.remote.ApiService
 import com.hugidonic.data.remote.dto.ScheduleDayDto
+import com.hugidonic.data.remote.dto.SubjectDto
 import com.hugidonic.domain.models.ScheduleDayModel
+import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.repositories.ScheduleRepository
 import com.hugidonic.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow
@@ -47,10 +49,10 @@ class ScheduleRepositoryImpl @Inject constructor(
                 data = localWeekSchedule
             )
         )
-        emit(Resource.Loading(false))
 
         val shouldLoadFromCache = localWeekSchedule.isNotEmpty() && !isFetchFromApi
         if (shouldLoadFromCache) {
+            emit(Resource.Loading(false))
             return@flow
         }
 
@@ -90,6 +92,22 @@ class ScheduleRepositoryImpl @Inject constructor(
             )
         )
         emit(Resource.Loading(false))
+    }
+
+    override suspend fun getSubjectById(subjectId: Int): Flow<Resource<SubjectModel>>  = flow{
+        emit(Resource.Loading(true))
+
+        try {
+            val localSubject = subjectDao.getSubjectById(subjectId)
+            emit(Resource.Success(
+                data = localSubject.toSubjectModel()
+            ))
+            emit(Resource.Loading(false))
+        } catch (e: IOException) {
+            emit(Resource.Error(
+                message = "Couldn't load subject from DB..."
+            ))
+        }
     }
 
     override suspend fun getScheduleDayFromDB(typeOfWeek: String, dayOfWeek: String): ScheduleDayModel? {
