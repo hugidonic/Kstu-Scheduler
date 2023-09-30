@@ -18,7 +18,7 @@ fun ProfileScreen(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(text = "Profile screen", style = MaterialTheme.typography.h2)
+        Text(text = "Profile screen", style = MaterialTheme.typography.h1)
     }
 }
 
