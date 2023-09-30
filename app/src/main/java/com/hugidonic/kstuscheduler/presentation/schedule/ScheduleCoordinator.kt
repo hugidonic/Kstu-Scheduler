@@ -5,7 +5,9 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.hugidonic.domain.models.SubjectModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.hugidonic.kstuscheduler.presentation.navigation.Screen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -18,7 +20,8 @@ class ScheduleCoordinator(
     val viewModel: ScheduleViewModel,
     val pagerState: PagerState,
     val scope: CoroutineScope,
-    val pagerPage: MutableIntState
+    val pagerPage: MutableIntState,
+    val navController: NavController
 ) {
     val screenStateFlow = viewModel.stateFlow
 
@@ -32,8 +35,8 @@ class ScheduleCoordinator(
         viewModel.changeTypeOfWeek()
     }
 
-    fun onSubjectClick(subject: SubjectModel) {
-        // TODO handle subject click
+    fun onSubjectClick(subjectId: Int) {
+        navController.navigate(Screen.SubjectDetails.createRoute(subjectId = subjectId))
     }
 
     fun onEditGroupClick(newGroup: String) {
@@ -52,6 +55,7 @@ fun validateGroup(newGroup: String): String {
 @Composable
 fun rememberScheduleCoordinator(
     viewModel: ScheduleViewModel = hiltViewModel(),
+    navController: NavController
 ): ScheduleCoordinator {
     val scope = rememberCoroutineScope()
 
@@ -72,6 +76,7 @@ fun rememberScheduleCoordinator(
             pagerPage = pagerPage,
             pagerState = pagerState,
             scope = scope,
+            navController = navController
         )
     }
 }

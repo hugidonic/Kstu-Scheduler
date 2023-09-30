@@ -3,6 +3,7 @@ package com.hugidonic.kstuscheduler.presentation.schedule.components
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.domain.models.SubjectModel
+import com.hugidonic.kstuscheduler.presentation.schedule.LocalScheduleActions
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 import com.hugidonic.kstuscheduler.presentation.ui.theme.Red100
 import com.hugidonic.kstuscheduler.presentation.ui.theme.White
@@ -28,8 +30,12 @@ fun SubjectCard(
     modifier: Modifier = Modifier,
     subjectInfo: SubjectModel,
 ) {
+
+    val scheduleActions = LocalScheduleActions.current
     Card(
-        modifier = modifier,
+        modifier = modifier.clickable {
+            scheduleActions.onSubjectClick(subjectInfo.subjectId)
+        },
         shape = RoundedCornerShape(8.dp),
         elevation = 5.dp,
     ) {

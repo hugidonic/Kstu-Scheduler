@@ -27,7 +27,7 @@ data class ScheduleState(
  **/
 data class ScheduleActions(
     val onDayOfWeekClick: (dayOfWeekIdx: Int) -> Unit = {},
-    val onSubjectClick: (subject: SubjectModel) -> Unit = {},
+    val onSubjectClick: (subjectId: Int) -> Unit = {},
     val onChangeTypeOfWeek: () -> Unit = {},
     val onEditGroup: (newGroup: String) -> Unit = {},
 )
