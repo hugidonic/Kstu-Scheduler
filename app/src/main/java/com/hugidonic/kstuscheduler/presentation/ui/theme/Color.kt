@@ -10,9 +10,9 @@ val LightSurface = Color(0xFFD9D9D9)
 val Gray = Color.Gray
 
 val Red100 = Color(0xFF931C1F)
-val Red200 = Color(0xFFa23b34)
-val Red300 = Color(0xFFb1544a)
-val Red400 = Color(0xFFbe6c62)
+val Red200 = Color(0xFF712224)
+val Red300 = Color(0xFFa23b34)
+val Red400 = Color(0xFFb1544a)
 val Red500 = Color(0xFFcb847a)
 val Red600 = Color(0xFFd79c93)
 

@@ -36,42 +36,43 @@ fun SubjectsList(
         ) {
             Text(text = "Нет пар", style = MaterialTheme.typography.body1, color = MaterialTheme.colors.secondary)
         }
-    }
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = PaddingValues(
-            start = 16.dp,
-            end = 16.dp,
-            bottom = Constants.BottomNavigationHeight + 16.dp
-        ),
+    } else {
+        LazyColumn(
+            modifier = modifier,
+            contentPadding = PaddingValues(
+                start = 16.dp,
+                end = 16.dp,
+                bottom = Constants.BottomNavigationHeight + 16.dp
+            ),
 
-    ) {
-        items(
-            items = subjects,
-        ) { classSubject ->
-            val isActive =
-                isSubjectActive(
-                    startTime = classSubject.startTime,
-                    endTime = classSubject.endTime,
-                    date = scheduleDate
-                )
-            SubjectRow(
-                subject = classSubject,
-                isActive = isActive
-            )
-        }
-        item {
-            val SPACER_WIDTH = 35.dp
-            Row(
-                modifier = Modifier
-                    .height(IntrinsicSize.Min)
-                    .padding(vertical = 5.dp)
             ) {
-                Spacer(modifier = Modifier.width(SPACER_WIDTH))
-                EllipseImage(
-                    isActive = false,
-                    modifier = Modifier.size(12.dp)
+            items(
+                items = subjects,
+            ) { classSubject ->
+                val isActive =
+                    isSubjectActive(
+                        startTime = classSubject.startTime,
+                        endTime = classSubject.endTime,
+                        date = scheduleDate
+                    )
+                SubjectRow(
+                    subject = classSubject,
+                    isActive = isActive
                 )
+            }
+            item {
+                val SPACER_WIDTH = 35.dp
+                Row(
+                    modifier = Modifier
+                        .height(IntrinsicSize.Min)
+                        .padding(vertical = 5.dp)
+                ) {
+                    Spacer(modifier = Modifier.width(SPACER_WIDTH))
+                    EllipseImage(
+                        isActive = false,
+                        modifier = Modifier.size(12.dp)
+                    )
+                }
             }
         }
     }
@@ -84,7 +85,6 @@ fun isSubjectActive(date: String, startTime: String, endTime: String): Boolean {
 
     val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     val scheduleDate = LocalDate.parse(date, dateFormatter)
-    Log.d("date", scheduleDate.toString())
     val currentDate = LocalDate.now()
 
     return scheduleDate == currentDate && currentTime in startTimeDate..endTimeDate

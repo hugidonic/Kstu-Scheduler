@@ -14,45 +14,72 @@ val RobotoRegular = FontFamily(Font(R.font.roboto_regular))
 val RobotoMedium = FontFamily(Font(R.font.roboto_medium))
 
 val Typography = Typography(
-	body1 = TextStyle(
+	h1 = TextStyle(
 		fontFamily = RobotoBold,
 		fontWeight = FontWeight.Bold,
-		fontSize = 18.sp,
+		fontSize = 24.sp
 	),
 
-	body2 = TextStyle(
-		fontFamily = RobotoRegular,
+	h2 = TextStyle(
+		fontFamily = RobotoBold,
+		fontWeight = FontWeight.Bold,
+		fontSize = 20.sp
+	),
+
+	h3 = TextStyle(
+		fontFamily = RobotoBold,
+		fontWeight = FontWeight.Bold,
+		fontSize = 18.sp
+	),
+
+	h4 = TextStyle(
+		fontFamily = RobotoBold,
+		fontWeight = FontWeight.Bold,
+		fontSize = 16.sp
+	),
+
+	h5 = TextStyle(
+		fontFamily = RobotoBold,
 		fontWeight = FontWeight.Bold,
 		fontSize = 14.sp
 	),
 
-	subtitle1 = TextStyle(
+	h6 = TextStyle(
 		fontFamily = RobotoBold,
 		fontWeight = FontWeight.Bold,
 		fontSize = 12.sp
 	),
 
-	subtitle2 = TextStyle(
-		fontFamily = RobotoRegular,
-		fontWeight = FontWeight.Bold,
-		fontSize = 12.sp
-	),
-
-	h1 = TextStyle(
+	body1 = TextStyle(
 		fontFamily = RobotoMedium,
 		fontWeight = FontWeight.Medium,
 		fontSize = 16.sp
 	),
 
-    button = TextStyle(
-        fontFamily = RobotoRegular,
-        fontWeight = FontWeight.W500,
-        fontSize = 12.sp
-    ),
+	body2 = TextStyle(
+		fontFamily = RobotoMedium,
+		fontWeight = FontWeight.Medium,
+		fontSize = 14.sp
+	),
 
-    caption = TextStyle(
-        fontFamily = RobotoMedium,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
+	subtitle1 = TextStyle(
+		fontFamily = RobotoRegular,
+		fontWeight = FontWeight.Normal,
+		fontSize = 16.sp
+	),
+	subtitle2 = TextStyle(
+		fontFamily = RobotoRegular,
+		fontWeight = FontWeight.Normal,
+		fontSize = 14.sp
+	),
+	caption = TextStyle(
+		fontFamily = RobotoRegular,
+		fontWeight = FontWeight.Normal,
+		fontSize = 12.sp
+	),
+	button = TextStyle(
+		fontFamily = RobotoMedium,
+		fontWeight = FontWeight.Medium,
+		fontSize = 12.sp
+	),
 )

@@ -47,7 +47,7 @@ fun SubjectCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 color = if (isSystemInDarkTheme()) White else Red100,
-                style = MaterialTheme.typography.h1,
+                style = MaterialTheme.typography.h4,
             )
             Row(modifier = Modifier.padding(top = 10.dp)) {
                 SubjectInfoColumn(
@@ -78,13 +78,15 @@ fun SubjectInfoColumn(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             text = subtitle1,
-            style = MaterialTheme.typography.subtitle1,
+            style = MaterialTheme.typography.body2,
+            color = MaterialTheme.colors.secondaryVariant
         )
         Text(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             text = subtitle2,
             style = MaterialTheme.typography.caption,
+            color = MaterialTheme.colors.secondaryVariant
         )
     }
 }

@@ -36,6 +36,7 @@ fun GroupTextField(
     ) {
         Text(
             text="Группа: ",
+            style = MaterialTheme.typography.h4
         )
         if (isEditMode) {
             CustomTextField(
@@ -45,16 +46,18 @@ fun GroupTextField(
                         newGroup = it
                     }
                 },
+                textStyle = MaterialTheme.typography.h4,
                 contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
                 modifier = Modifier
-                    .width(intrinsicSize = IntrinsicSize.Min)
+                    .width(intrinsicSize = IntrinsicSize.Max)
                     .background(MaterialTheme.colors.surface)
             )
         } else {
             Text(
                 text=group,
+                style = MaterialTheme.typography.h4,
                 modifier = Modifier
-                    .width(intrinsicSize = IntrinsicSize.Min)
+                    .width(intrinsicSize = IntrinsicSize.Max)
                     .padding(horizontal = 10.dp)
             )
         }

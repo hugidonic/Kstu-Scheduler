@@ -25,7 +25,7 @@ fun SubjectRow(
 	isActive: Boolean = false,
 ) {
 	val size = if (isActive) 20.dp else 12.dp
-	val COL_WIDTH = 40.dp
+	val COL_WIDTH = 44.dp
 	val DIVIDER_WIDTH = 2.dp
 	val SPACER_WIDTH = COL_WIDTH + DIVIDER_WIDTH/2 - size/2
 	val ELLIPSE_PADDING = 5.dp
@@ -59,7 +59,7 @@ fun SubjectRow(
 				)
 				Text(
 					text = subject.endTime,
-					style= MaterialTheme.typography.caption,
+					style= MaterialTheme.typography.button,
 					color= MaterialTheme.colors.secondary
 				)
 			}

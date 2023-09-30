@@ -5,30 +5,36 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hugidonic.kstuscheduler.presentation.navigation.ShowBars
 import com.hugidonic.kstuscheduler.presentation.schedule.components.Header
 import com.hugidonic.kstuscheduler.presentation.schedule.components.SubjectsList
 import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
 import com.hugidonic.kstuscheduler.presentation.utils.DummyData
+import java.time.LocalDate
 
 @Composable
 fun ScheduleScreen(
     state: ScheduleState = ScheduleState(),
     actions: ScheduleActions = ScheduleActions()
 ) {
+    ShowBars(flag = true)
+    val currentScheduleDay = if (state.activeScheduleDayIdx < state.weekScheduleDays.size) {
+        state.weekScheduleDays[state.activeScheduleDayIdx]
+    } else {
+       null
+    }
+
     Column {
         Header(state = state, actions)
-        if (state.weekScheduleDays.isEmpty()) {
+        if (state.isLoading) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
@@ -43,10 +49,9 @@ fun ScheduleScreen(
             SubjectsList(
                 modifier = Modifier
                     .fillMaxSize()
-//                    .padding(16.dp)
                 ,
-                subjects = state.weekScheduleDays[state.activeScheduleDayIdx].subjects,
-                scheduleDate = state.weekScheduleDays[state.activeScheduleDayIdx].date
+                subjects = currentScheduleDay?.subjects ?: emptyList(),
+                scheduleDate = currentScheduleDay?.date ?: LocalDate.now().toString()
             )
         }
     }
