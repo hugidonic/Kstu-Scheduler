@@ -1,6 +1,5 @@
 package com.hugidonic.data.db.scheduleDao.schedule
 
-import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth
@@ -8,9 +7,9 @@ import com.hugidonic.data.converters.toScheduleDayEntity
 import com.hugidonic.data.database.AppDatabase
 import com.hugidonic.data.database.ScheduleDao
 import com.hugidonic.data.database.entities.ScheduleDayEntity
-import com.hugidonic.data.db.scheduleDao.dummyData.DummyData
 import com.hugidonic.data.remote.ApiFactory
 import com.hugidonic.data.remote.ApiService
+import com.hugidonic.domain.dummy.DummyData
 import com.hugidonic.domain.models.SubjectModel
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach

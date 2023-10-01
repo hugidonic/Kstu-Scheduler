@@ -1,4 +1,4 @@
-package com.hugidonic.kstuscheduler.presentation.utils
+package com.hugidonic.domain.dummy
 
 import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.domain.models.SubjectModel
