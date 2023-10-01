@@ -8,7 +8,6 @@ import com.hugidonic.data.database.ScheduleDao
 import com.hugidonic.data.database.SubjectDao
 import com.hugidonic.data.remote.ApiService
 import com.hugidonic.data.remote.dto.ScheduleDayDto
-import com.hugidonic.data.remote.dto.SubjectDto
 import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.repositories.ScheduleRepository
@@ -19,7 +18,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.Period
+import java.time.Duration
 import javax.inject.Inject
 
 class ScheduleRepositoryImpl @Inject constructor(
@@ -149,10 +148,11 @@ class ScheduleRepositoryImpl @Inject constructor(
             LocalDate.of(currentDate.year, 9, 1)
         }
 
+//        TODO: Handle this error with unsupported unit Seconds
         val firstWeekMonday = semesterBeginDate.minusDays(semesterBeginDate.dayOfWeek.ordinal.toLong())
 
-        val periodDays = Period.between(firstWeekMonday, currentDate).days
-        val weeks = periodDays / 7
+        val periodDays = Duration.between(firstWeekMonday.atStartOfDay(), currentDate.atStartOfDay()).toDays()
+        val weeks = (periodDays / 7).toInt()
 
         return if ((weeks + 1) % 2 == 0) "Чет" else "Нечет"
     }
