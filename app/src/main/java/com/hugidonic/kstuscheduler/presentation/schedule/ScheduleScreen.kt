@@ -1,7 +1,6 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -31,8 +30,7 @@ fun ScheduleScreen(
        null
     }
 
-    Column(
-    ) {
+    Column {
         Header(state = state, actions)
         if (state.isLoading) {
             Box(

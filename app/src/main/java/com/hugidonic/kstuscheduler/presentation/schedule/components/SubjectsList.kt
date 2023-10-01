@@ -82,7 +82,7 @@ fun isSubjectActive(date: String, startTime: String, endTime: String): Boolean {
     val endTimeDate = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"))
     val currentTime = LocalTime.now()
 
-    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     val scheduleDate = LocalDate.parse(date, dateFormatter)
     val currentDate = LocalDate.now()
 
