@@ -1,22 +1,21 @@
 package com.hugidonic.kstuscheduler.presentation.schedule.components
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.domain.models.SubjectModel
-import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import com.hugidonic.kstuscheduler.presentation.utils.Constants
-import com.hugidonic.kstuscheduler.presentation.utils.DummyData
+import com.hugidonic.domain.dummy.DummyData
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -34,7 +33,7 @@ fun SubjectsList(
                 .fillMaxSize()
                 .padding(top = 20.dp)
         ) {
-            Text(text = "Нет пар", style = MaterialTheme.typography.body1, color = MaterialTheme.colors.secondary)
+            Text(text = "Нет пар", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.tertiary)
         }
     } else {
         LazyColumn(
@@ -61,7 +60,7 @@ fun SubjectsList(
                 )
             }
             item {
-                val SPACER_WIDTH = 35.dp
+                val SPACER_WIDTH = Constants.getSubjectSpacerWidth(isActive = false)
                 Row(
                     modifier = Modifier
                         .height(IntrinsicSize.Min)
@@ -92,9 +91,9 @@ fun isSubjectActive(date: String, startTime: String, endTime: String): Boolean {
 
 @Composable
 private fun PreviewClassesList() {
-    MainAppTheme {
+    AppTheme {
         Surface(
-            color = MaterialTheme.colors.background,
+            color = MaterialTheme.colorScheme.background,
         ) {
             SubjectsList(
                 modifier = Modifier.padding(20.dp), subjects = DummyData.weekSchedule[3].subjects,

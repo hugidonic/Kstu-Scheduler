@@ -4,7 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,7 +13,7 @@ import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.kstuscheduler.presentation.subjectdetails.components.Details
-import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import java.util.*
 
 @Composable
@@ -28,7 +28,7 @@ fun SubjectDetailsScreen(
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
                 strokeWidth = 8.dp,
                 strokeCap = StrokeCap.Round,
                 modifier = Modifier.size(100.dp)
@@ -43,10 +43,10 @@ fun SubjectDetailsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(210.dp)
-                    .background(MaterialTheme.colors.secondary),
+                    .background(MaterialTheme.colorScheme.tertiary),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "Map", style = MaterialTheme.typography.h1)
+                Text(text = "Map", style = MaterialTheme.typography.displayLarge)
             }
             Details(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),subjectInfo = subjectInfo)
         }
@@ -55,7 +55,7 @@ fun SubjectDetailsScreen(
 
 @Composable
 private fun SubjectDetailsScreenPreview() {
-    MainAppTheme {
+    AppTheme {
         Surface {
             SubjectDetailsScreen()
         }

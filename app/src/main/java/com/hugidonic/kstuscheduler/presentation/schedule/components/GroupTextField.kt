@@ -3,7 +3,8 @@ package com.hugidonic.kstuscheduler.presentation.schedule.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
@@ -12,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import com.hugidonic.kstuscheduler.presentation.shared.CustomTextField
 
 @Composable
@@ -36,7 +37,7 @@ fun GroupTextField(
     ) {
         Text(
             text="Группа: ",
-            style = MaterialTheme.typography.h4
+            style = MaterialTheme.typography.headlineMedium
         )
         if (isEditMode) {
             CustomTextField(
@@ -46,18 +47,23 @@ fun GroupTextField(
                         newGroup = it
                     }
                 },
-                textStyle = MaterialTheme.typography.h4,
+                shape = RoundedCornerShape(0.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                ),
+                textStyle = MaterialTheme.typography.headlineMedium,
                 contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
                 modifier = Modifier
-                    .width(intrinsicSize = IntrinsicSize.Max)
-                    .background(MaterialTheme.colors.surface)
+                    .width(intrinsicSize = IntrinsicSize.Min)
+                    .background(MaterialTheme.colorScheme.background)
             )
         } else {
             Text(
                 text=group,
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier
-                    .width(intrinsicSize = IntrinsicSize.Max)
+                    .width(intrinsicSize = IntrinsicSize.Min)
                     .padding(horizontal = 10.dp)
             )
         }
@@ -79,10 +85,10 @@ fun GroupTextField(
 
 @Composable
 private fun PreviewGroupTextField() {
-    MainAppTheme {
+    AppTheme {
         Surface(
             modifier = Modifier
-                .background(MaterialTheme.colors.secondary)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(10.dp)
         ) {
             GroupTextField(

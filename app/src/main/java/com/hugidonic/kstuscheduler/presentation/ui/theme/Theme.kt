@@ -1,47 +1,71 @@
 package com.hugidonic.kstuscheduler.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.unit.Dp
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.unit.dp
 
-private val DarkColorPalette = darkColors(
+val AppLightColorScheme = lightColorScheme(
+	primary = Red200,
+	onPrimary = White,
+
+	secondary = Red300,
+	onSecondary = White,
+
+	tertiary = Mixed600,
+	onTertiary = White,
+
+	background = OffWhite,
+	onBackground = Black,
+
+	surface = White,
+	onSurface = Black,
+	surfaceTint = Red100,
+
+	error = Red200,
+	onError = White,
+	errorContainer = Red100,
+)
+
+val AppDarkColorScheme = darkColorScheme(
 	primary = Red300,
-	primaryVariant = Red200,
-	secondary = Dark600,
-	secondaryVariant = LightSurface,
+	onPrimary = White,
+
+	secondary = Red200,
+	onSecondary = White,
+
+	tertiary = Dark600,
+	onTertiary = White,
 
 	background = Dark100,
 	onBackground = White,
+
 	surface = Dark200,
+	onSurface = White,
+	surfaceTint = Red300,
+
+	error = Red100,
+	onError = White,
+	errorContainer = Red300,
 )
 
-private val LightColorPalette = lightColors(
-	primary = Red100,
-	primaryVariant = Red200,
-	secondary = Dark600,
-	secondaryVariant = DarkSurface,
-
-    background = OffWhite,
-	onBackground = Dark100,
-    surface = White,
-	onSurface = Dark100,
-)
 
 @Composable
-fun MainAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () ->
-Unit) {
-	val colors = if (darkTheme) {
-		DarkColorPalette
-	} else {
-		LightColorPalette
-	}
+fun AppTheme(
+	darkTheme: Boolean = isSystemInDarkTheme(),
+	content: @Composable () -> Unit
+) {
+	val colorScheme = if (darkTheme) AppDarkColorScheme else AppLightColorScheme
 
 	MaterialTheme(
-		colors = colors,
-		typography = Typography,
-		shapes = Shapes,
-		content = content
+		colorScheme = colorScheme,
+		content = content,
+		shapes = AppShapes,
+		typography = AppTypography,
 	)
 }

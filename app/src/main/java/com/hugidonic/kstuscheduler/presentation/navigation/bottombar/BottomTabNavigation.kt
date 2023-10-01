@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,20 +30,19 @@ fun BottomNavigationBar(
         enter = slideInVertically(initialOffsetY = { it  }),
         exit = slideOutVertically(targetOffsetY = { it }),
     ) {
-        BottomNavigation(
-            backgroundColor = MaterialTheme.colors.surface,
+        NavigationBar(
+            containerColor = MaterialTheme.colorScheme.background,
             modifier = Modifier.shadow(
                 elevation = 10.dp,
-                spotColor = MaterialTheme.colors.onSurface
+                spotColor = MaterialTheme.colorScheme.onSurface
             ),
-            elevation = 10.dp,
         ) {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
 
             Row(
                 modifier = Modifier
-                    .background(MaterialTheme.colors.surface)
+                    .background(MaterialTheme.colorScheme.background)
                     .fillMaxHeight()
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,

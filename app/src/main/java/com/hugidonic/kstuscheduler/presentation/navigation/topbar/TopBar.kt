@@ -1,17 +1,20 @@
 package com.hugidonic.kstuscheduler.presentation.navigation.topbar
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
     navController: NavController
 ) {
-    TopAppBar(
-        backgroundColor = MaterialTheme.colors.surface,
+    CenterAlignedTopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.background,
+        ),
         navigationIcon = {
             IconButton(onClick = {
                 navController.popBackStack()
@@ -26,8 +29,7 @@ fun TopBar(
             Text(
                 text = "О дисциплине",
                 textAlign = TextAlign.Center,
-
-                style = MaterialTheme.typography.h2
+                style = MaterialTheme.typography.titleLarge
             )
         },
     )

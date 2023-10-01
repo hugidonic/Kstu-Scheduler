@@ -1,10 +1,9 @@
 package com.hugidonic.kstuscheduler.presentation.ui.theme
 
-import androidx.compose.material.Typography
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.material3.Typography
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.hugidonic.kstuscheduler.R
@@ -13,73 +12,85 @@ val RobotoBold = FontFamily(Font(R.font.roboto_bold))
 val RobotoRegular = FontFamily(Font(R.font.roboto_regular))
 val RobotoMedium = FontFamily(Font(R.font.roboto_medium))
 
-val Typography = Typography(
-	h1 = TextStyle(
+
+val AppTypography = Typography(
+	displayLarge = TextStyle(
 		fontFamily = RobotoBold,
 		fontWeight = FontWeight.Bold,
 		fontSize = 24.sp
 	),
-
-	h2 = TextStyle(
+	displayMedium = TextStyle(
+		fontFamily = RobotoBold,
+		fontWeight = FontWeight.Bold,
+		fontSize = 22.sp
+	),
+	displaySmall = TextStyle(
 		fontFamily = RobotoBold,
 		fontWeight = FontWeight.Bold,
 		fontSize = 20.sp
 	),
-
-	h3 = TextStyle(
+	headlineLarge = TextStyle(
 		fontFamily = RobotoBold,
 		fontWeight = FontWeight.Bold,
 		fontSize = 18.sp
 	),
-
-	h4 = TextStyle(
+	headlineMedium = TextStyle(
 		fontFamily = RobotoBold,
 		fontWeight = FontWeight.Bold,
 		fontSize = 16.sp
 	),
-
-	h5 = TextStyle(
+	headlineSmall = TextStyle(
 		fontFamily = RobotoBold,
 		fontWeight = FontWeight.Bold,
 		fontSize = 14.sp
 	),
 
-	h6 = TextStyle(
-		fontFamily = RobotoBold,
-		fontWeight = FontWeight.Bold,
-		fontSize = 12.sp
-	),
 
-	body1 = TextStyle(
+
+	titleLarge = TextStyle(
+		fontFamily = RobotoMedium,
+		fontWeight = FontWeight.Medium,
+		fontSize = 18.sp
+	),
+	titleMedium = TextStyle(
 		fontFamily = RobotoMedium,
 		fontWeight = FontWeight.Medium,
 		fontSize = 16.sp
 	),
-
-	body2 = TextStyle(
+	titleSmall = TextStyle(
 		fontFamily = RobotoMedium,
 		fontWeight = FontWeight.Medium,
 		fontSize = 14.sp
 	),
 
-	subtitle1 = TextStyle(
+	bodyLarge = TextStyle(
+		fontFamily = RobotoRegular,
+		fontWeight = FontWeight.Normal,
+		fontSize = 18.sp
+	),
+	bodyMedium = TextStyle(
 		fontFamily = RobotoRegular,
 		fontWeight = FontWeight.Normal,
 		fontSize = 16.sp
 	),
-	subtitle2 = TextStyle(
+	bodySmall = TextStyle(
 		fontFamily = RobotoRegular,
 		fontWeight = FontWeight.Normal,
 		fontSize = 14.sp
 	),
-	caption = TextStyle(
+	labelLarge = TextStyle(
 		fontFamily = RobotoRegular,
 		fontWeight = FontWeight.Normal,
 		fontSize = 12.sp
 	),
-	button = TextStyle(
-		fontFamily = RobotoMedium,
-		fontWeight = FontWeight.Medium,
-		fontSize = 12.sp
+	labelMedium = TextStyle(
+		fontFamily = RobotoRegular,
+		fontWeight = FontWeight.Normal,
+		fontSize = 10.sp
+	),
+	labelSmall =  TextStyle(
+		fontFamily = RobotoRegular,
+		fontWeight = FontWeight.Normal,
+		fontSize = 8.sp
 	),
 )

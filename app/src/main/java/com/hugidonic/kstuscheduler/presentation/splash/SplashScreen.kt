@@ -4,11 +4,12 @@ import android.content.res.Configuration
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +24,7 @@ import androidx.navigation.NavHostController
 import com.hugidonic.kstuscheduler.R
 import com.hugidonic.kstuscheduler.presentation.navigation.Screen
 import com.hugidonic.kstuscheduler.presentation.navigation.ShowBars
-import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import com.hugidonic.kstuscheduler.presentation.utils.Constants
 import kotlinx.coroutines.delay
 
@@ -39,7 +40,7 @@ fun AnimatedSplashScreen(
     val alphaAnim = animateFloatAsState(
         targetValue = if (startAnimation) 1f else 0f,
         animationSpec = tween(
-            durationMillis = 1500
+            durationMillis = 600
         ),
         label = "alhpaAnim"
     )
@@ -58,12 +59,12 @@ fun AnimatedSplashScreen(
 fun Splash(alpha: Float = 1f) {
     val logo =if (isSystemInDarkTheme()) R.drawable.logo_dark else R.drawable.logo_light
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.background(MaterialTheme.colorScheme.background).fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(
             modifier = Modifier
-                .width(210.dp)
+                .width(220.dp)
                 .alpha(alpha),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -77,8 +78,8 @@ fun Splash(alpha: Float = 1f) {
             Text(
                 text = "Расписание пар в твоем телефоне",
                 textAlign = TextAlign.Center,
-                color = Color(0xFFC8C4C3),
-                style = MaterialTheme.typography.h1,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.displayLarge,
             )
         }
     }
@@ -87,7 +88,7 @@ fun Splash(alpha: Float = 1f) {
 
 @Composable
 private fun PreviewSplashScreen() {
-    MainAppTheme {
+    AppTheme {
         Surface {
             Splash()
         }

@@ -12,7 +12,7 @@ fun EllipseImage(
 	modifier: Modifier = Modifier,
 	isActive: Boolean = false,
 ) {
-	val activeResId = if (isActive) R.drawable.active_ellipse else R.drawable.ellipse
+	val activeResId = if (isActive) R.drawable.ellipse_active else R.drawable.ellipse
 
 	Image(
 		painter = painterResource(id=activeResId),

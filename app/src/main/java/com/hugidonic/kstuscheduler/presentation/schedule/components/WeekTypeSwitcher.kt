@@ -6,9 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.kstuscheduler.presentation.ui.theme.DarkSurface
 import com.hugidonic.kstuscheduler.presentation.ui.theme.LightSurface
-import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
+import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 
 @Composable
 fun WeekTypeSwitcher(
@@ -38,17 +38,17 @@ fun WeekTypeSwitcher(
     ) {
         Text(
             text = "${currentType}ная",
-            style = MaterialTheme.typography.body1,
+            style = MaterialTheme.typography.bodyLarge,
         )
     }
 }
 
 @Composable
 private fun PreviewWeekTypeSwitcher() {
-    MainAppTheme {
+    AppTheme {
         Surface(
             modifier = Modifier
-                .background(MaterialTheme.colors.surface)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(15.dp)
         ) {
             WeekTypeSwitcher(currentType = "Чет", onChangeType = {})

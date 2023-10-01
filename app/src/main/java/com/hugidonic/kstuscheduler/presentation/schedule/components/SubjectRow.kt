@@ -3,20 +3,18 @@ package com.hugidonic.kstuscheduler.presentation.schedule.components
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.domain.models.SubjectModel
-import com.hugidonic.kstuscheduler.presentation.ui.theme.MainAppTheme
-import com.hugidonic.kstuscheduler.presentation.ui.theme.Red100
-import com.hugidonic.kstuscheduler.presentation.utils.DummyData
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
+import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
+import com.hugidonic.domain.dummy.DummyData
+import com.hugidonic.kstuscheduler.presentation.utils.Constants
 
 
 @Composable
@@ -24,22 +22,18 @@ fun SubjectRow(
 	subject: SubjectModel,
 	isActive: Boolean = false,
 ) {
-	val size = if (isActive) 20.dp else 12.dp
-	val COL_WIDTH = 44.dp
-	val DIVIDER_WIDTH = 2.dp
-	val SPACER_WIDTH = COL_WIDTH + DIVIDER_WIDTH/2 - size/2
-	val ELLIPSE_PADDING = 5.dp
-
-	Column() {
+	val ELLIPSE_SIZE = Constants.getEllipseSize(isActive)
+	val SPACER_WIDTH = Constants.getSubjectSpacerWidth(isActive)
+	Column {
 		Row(
 			modifier = Modifier
 				.height(IntrinsicSize.Min)
-				.padding(vertical = ELLIPSE_PADDING)
+				.padding(vertical = Constants.ELLIPSE_PADDING)
 		) {
 			Spacer(modifier = Modifier.width(SPACER_WIDTH))
 			EllipseImage(
 				isActive = isActive,
-				modifier = Modifier.size(size)
+				modifier = Modifier.size(ELLIPSE_SIZE)
 			)
 		}
 		Row(
@@ -50,23 +44,24 @@ fun SubjectRow(
 				horizontalAlignment = Alignment.End,
 				modifier = Modifier
 					.fillMaxHeight()
-					.width(COL_WIDTH)
+					.width(Constants.SUBJECT_COL_WIDTH)
 					.padding(end = 6.dp)
 			) {
 				Text(
 					text = subject.startTime,
-					style= MaterialTheme.typography.body2,
+					style= MaterialTheme.typography.titleSmall,
+					color = MaterialTheme.colorScheme.onBackground
 				)
 				Text(
 					text = subject.endTime,
-					style= MaterialTheme.typography.button,
-					color= MaterialTheme.colors.secondary
+					style= MaterialTheme.typography.labelLarge,
+					color= MaterialTheme.colorScheme.tertiary
 				)
 			}
 			Box(
 				modifier = Modifier
-					.background(Red100)
-					.width(DIVIDER_WIDTH)
+					.background(MaterialTheme.colorScheme.primary)
+					.width(Constants.SUBJECT_DIVIDER_WIDTH)
 					.fillMaxHeight()
 			)
 			SubjectCard(
@@ -81,8 +76,10 @@ fun SubjectRow(
 
 @Composable
 fun PreviewClassSubject() {
-	MainAppTheme {
-		Surface(color = MaterialTheme.colors.background) {
+	AppTheme {
+		Surface(
+			modifier = Modifier.padding(10.dp),
+			color = MaterialTheme.colorScheme.background) {
 			Column(
 				modifier = Modifier.padding(20.dp)
 			) {
