@@ -5,8 +5,6 @@ import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 interface ScheduleRepository {
     suspend fun getWeekSchedule(
