@@ -3,7 +3,10 @@ package com.hugidonic.kstuscheduler.presentation.subjectdetails
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +48,7 @@ fun SubjectDetailsScreen(
             ) {
                 Text(text = "Map", style = MaterialTheme.typography.displayLarge)
             }
-            Details(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),subjectInfo = subjectInfo)
+            Details(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp), subjectInfo = subjectInfo)
         }
     }
 }

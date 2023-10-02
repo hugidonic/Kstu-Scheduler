@@ -29,9 +29,8 @@ object Constants {
 
     fun getSubjectSpacerWidth(isActive: Boolean): Dp {
         val size = getEllipseSize(isActive)
-        return SUBJECT_COL_WIDTH + SUBJECT_DIVIDER_WIDTH/2 - size/2
+        return SUBJECT_COL_WIDTH + SUBJECT_DIVIDER_WIDTH / 2 - size / 2
     }
-
 
 
     val BottomNavigationHeight = 56.dp

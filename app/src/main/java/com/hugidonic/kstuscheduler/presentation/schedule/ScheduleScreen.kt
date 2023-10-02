@@ -1,21 +1,24 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hugidonic.domain.dummy.DummyData
 import com.hugidonic.kstuscheduler.presentation.navigation.ShowBars
 import com.hugidonic.kstuscheduler.presentation.schedule.components.Header
 import com.hugidonic.kstuscheduler.presentation.schedule.components.SubjectsList
 import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
-import com.hugidonic.domain.dummy.DummyData
 import java.time.LocalDate
 
 @Composable
@@ -27,7 +30,7 @@ fun ScheduleScreen(
     val currentScheduleDay = if (state.activeScheduleDayIdx < state.weekScheduleDays.size) {
         state.weekScheduleDays[state.activeScheduleDayIdx]
     } else {
-       null
+        null
     }
 
     Column {
@@ -48,8 +51,7 @@ fun ScheduleScreen(
         } else {
             SubjectsList(
                 modifier = Modifier
-                    .fillMaxSize()
-                ,
+                    .fillMaxSize(),
                 subjects = currentScheduleDay?.subjects ?: emptyList(),
                 scheduleDate = currentScheduleDay?.date ?: LocalDate.now().toString()
             )

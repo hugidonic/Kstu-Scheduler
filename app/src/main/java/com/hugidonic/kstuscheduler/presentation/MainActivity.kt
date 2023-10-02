@@ -10,7 +10,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -23,64 +22,64 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContent {
-			AppTheme {
-				// A surface container using the 'background' color from the theme
-				Surface(
-					modifier = Modifier.fillMaxSize(),
-					color = MaterialTheme.colorScheme.background
-				) {
-					val navController = rememberNavController()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            AppTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    val navController = rememberNavController()
 
-					val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-					var isTopBarVisible by rememberSaveable { (mutableStateOf(true)) }
+                    var isTopBarVisible by rememberSaveable { (mutableStateOf(true)) }
 
-					// Control TopBar and BottomBar
-					when (navBackStackEntry?.destination?.route) {
-						Screen.SubjectDetails.route, Screen.PrepodDetails.route -> {
-							isTopBarVisible = true
-						}
+                    // Control TopBar and BottomBar
+                    when (navBackStackEntry?.destination?.route) {
+                        Screen.SubjectDetails.route, Screen.PrepodDetails.route -> {
+                            isTopBarVisible = true
+                        }
 
-						else -> {
-							isTopBarVisible = false
-						}
-					}
+                        else -> {
+                            isTopBarVisible = false
+                        }
+                    }
 
-					Scaffold(
-						containerColor = MaterialTheme.colorScheme.background,
-						topBar = {
-							if (isTopBarVisible) {
-								TopBar(navController = navController)
-							}
-						},
-					) {padding ->
-						AppNavGraph(navHostController = navController, padding = padding)
-					}
-				}
-			}
-		}
-	}
+                    Scaffold(
+                        containerColor = MaterialTheme.colorScheme.background,
+                        topBar = {
+                            if (isTopBarVisible) {
+                                TopBar(navController = navController)
+                            }
+                        },
+                    ) { padding ->
+                        AppNavGraph(navHostController = navController, padding = padding)
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Stable
 @Composable
 private fun NavHostController.shouldShowBottomNavigationAsState(): State<Boolean> {
-	val shouldShowBottomNavigation = remember { mutableStateOf(false) }
+    val shouldShowBottomNavigation = remember { mutableStateOf(false) }
 
-	DisposableEffect(this) {
-		val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
-			shouldShowBottomNavigation.value = destination.route != Screen.Splash.route
-		}
-		addOnDestinationChangedListener(listener)
-		onDispose {
-			removeOnDestinationChangedListener(listener)
-		}
-	}
+    DisposableEffect(this) {
+        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+            shouldShowBottomNavigation.value = destination.route != Screen.Splash.route
+        }
+        addOnDestinationChangedListener(listener)
+        onDispose {
+            removeOnDestinationChangedListener(listener)
+        }
+    }
 
-	return shouldShowBottomNavigation
+    return shouldShowBottomNavigation
 }
 
 

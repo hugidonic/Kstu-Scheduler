@@ -12,10 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hugidonic.domain.dummy.DummyData
 import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import com.hugidonic.kstuscheduler.presentation.utils.Constants
-import com.hugidonic.domain.dummy.DummyData
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -33,7 +33,11 @@ fun SubjectsList(
                 .fillMaxSize()
                 .padding(top = 20.dp)
         ) {
-            Text(text = "Нет пар", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.tertiary)
+            Text(
+                text = "Нет пар",
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.tertiary
+            )
         }
     } else {
         LazyColumn(

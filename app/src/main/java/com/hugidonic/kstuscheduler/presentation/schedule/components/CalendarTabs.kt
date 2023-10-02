@@ -49,7 +49,7 @@ fun CalendarTabs(
                 enabled = true,
                 selected = currentPage == idx,
                 onClick = {
-                      onDayOfWeekClick(idx)
+                    onDayOfWeekClick(idx)
                 },
                 modifier = Modifier.fillMaxWidth(ITEM_WIDTH),
             ) {
@@ -61,11 +61,11 @@ fun CalendarTabs(
                 ) {
                     Text(
                         text = weekDayName,
-                        style =  if (currentPage == idx) {
-                                MaterialTheme.typography.headlineSmall
-                            } else {
-                                MaterialTheme.typography.labelLarge
-                            },
+                        style = if (currentPage == idx) {
+                            MaterialTheme.typography.headlineSmall
+                        } else {
+                            MaterialTheme.typography.labelLarge
+                        },
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }

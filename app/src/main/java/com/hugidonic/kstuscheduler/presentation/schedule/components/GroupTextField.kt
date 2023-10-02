@@ -4,17 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import com.hugidonic.kstuscheduler.presentation.shared.CustomTextField
+import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 
 @Composable
 fun GroupTextField(
@@ -36,7 +36,7 @@ fun GroupTextField(
         modifier = modifier
     ) {
         Text(
-            text="Группа: ",
+            text = "Группа: ",
             style = MaterialTheme.typography.headlineMedium
         )
         if (isEditMode) {
@@ -60,7 +60,7 @@ fun GroupTextField(
             )
         } else {
             Text(
-                text=group,
+                text = group,
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier
                     .width(intrinsicSize = IntrinsicSize.Min)

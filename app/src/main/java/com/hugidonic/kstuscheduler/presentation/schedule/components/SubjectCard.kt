@@ -15,13 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.hugidonic.domain.dummy.DummyData
 import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.kstuscheduler.presentation.schedule.LocalScheduleActions
 import com.hugidonic.kstuscheduler.presentation.schedule.ScheduleActions
 import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
-import com.hugidonic.kstuscheduler.presentation.ui.theme.Red100
 import com.hugidonic.kstuscheduler.presentation.ui.theme.White
 
 @Composable

@@ -1,6 +1,5 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

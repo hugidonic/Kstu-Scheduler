@@ -3,7 +3,6 @@ package com.hugidonic.kstuscheduler.presentation.subjectdetails
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 
 /**
  * Screen's coordinator which is responsible for handling actions from the UI layer

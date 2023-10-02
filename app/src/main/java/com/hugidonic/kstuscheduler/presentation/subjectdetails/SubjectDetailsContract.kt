@@ -9,7 +9,7 @@ import com.hugidonic.domain.models.SubjectModel
 /**
  * UI State that represents SubjectDetailsScreen
  **/
-data class SubjectDetailsState (
+data class SubjectDetailsState(
     val subjectDetails: SubjectModel? = null,
     val isLoading: Boolean = false,
     val errorMessage: String? = null,

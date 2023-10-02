@@ -1,24 +1,18 @@
 package com.hugidonic.kstuscheduler.presentation.navigation
 
-import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
-import com.hugidonic.kstuscheduler.presentation.profile.ProfileRoute
-import com.hugidonic.kstuscheduler.presentation.profile.ProfileScreen
 import com.hugidonic.kstuscheduler.presentation.schedule.ScheduleRoute
 import com.hugidonic.kstuscheduler.presentation.splash.AnimatedSplashScreen
 import com.hugidonic.kstuscheduler.presentation.subjectdetails.SubjectDetailsRoute
-import com.hugidonic.kstuscheduler.presentation.subjectdetails.SubjectDetailsScreen
 
 @Composable
 fun AppNavGraph(

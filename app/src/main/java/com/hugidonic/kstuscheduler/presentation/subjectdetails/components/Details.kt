@@ -15,12 +15,11 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.hugidonic.domain.dummy.DummyData
 import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import com.hugidonic.kstuscheduler.presentation.ui.theme.RobotoBold
 import com.hugidonic.kstuscheduler.presentation.ui.theme.RobotoRegular
-import com.hugidonic.domain.dummy.DummyData
-import com.hugidonic.kstuscheduler.presentation.ui.theme.RobotoMedium
 
 @Composable
 fun Details(
