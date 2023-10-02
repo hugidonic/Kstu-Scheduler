@@ -2,6 +2,7 @@ package com.hugidonic.kstuscheduler.presentation.subjectdetails.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -27,11 +28,13 @@ fun Details(
     subjectInfo: SubjectModel
 ) {
 
+    val textColor = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.primary
+
     val boldSpanStyle = SpanStyle(
         fontFamily = RobotoBold,
         fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
-        color = MaterialTheme.colorScheme.primary
+        color = textColor
     )
 
     val regularSpanStyle = SpanStyle(
@@ -59,7 +62,7 @@ fun Details(
                 Text(
                     text = "${subjectInfo.title} (${subjectInfo.shortTitle})",
                     style = MaterialTheme.typography.displaySmall,
-                    color = MaterialTheme.colorScheme.primary
+                    color = textColor
                 )
             }
         }
@@ -80,7 +83,7 @@ fun Details(
             ) {
                 Text(
                     text = "Преподаватель:",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
                     text = subjectInfo.prepod,
