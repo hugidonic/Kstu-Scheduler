@@ -19,9 +19,7 @@ data class SubjectDetailsState(
  * SubjectDetails Actions emitted from the UI Layer
  * passed to the coordinator to handle
  **/
-data class SubjectDetailsActions(
-    val onMakeRouteClick: () -> Unit = {},
-)
+class SubjectDetailsActions()
 
 /**
  * Compose Utility to retrieve actions from nested components

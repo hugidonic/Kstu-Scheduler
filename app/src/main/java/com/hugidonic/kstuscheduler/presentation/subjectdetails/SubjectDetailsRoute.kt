@@ -25,8 +25,6 @@ fun rememberSubjectDetailsActions(
     coordinator: SubjectDetailsCoordinator,
 ): SubjectDetailsActions {
     return remember(coordinator) {
-        SubjectDetailsActions(
-            onMakeRouteClick = coordinator::onMakeRouteClick,
-        )
+        SubjectDetailsActions()
     }
 }

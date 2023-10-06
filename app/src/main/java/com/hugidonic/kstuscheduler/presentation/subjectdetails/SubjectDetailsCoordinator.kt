@@ -13,9 +13,6 @@ class SubjectDetailsCoordinator(
 ) {
     val screenStateFlow = viewModel.stateFlow
 
-    fun onMakeRouteClick() {
-        // TODO Handle UI Action
-    }
 }
 
 @Composable
