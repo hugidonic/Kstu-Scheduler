@@ -4,7 +4,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,11 +19,12 @@ import com.hugidonic.kstuscheduler.presentation.subjectdetails.SubjectDetailsRou
 @Composable
 fun AppNavGraph(
     navHostController: NavHostController,
-    padding: PaddingValues? = null,
+    padding: PaddingValues,
 ) {
 
     NavHost(
         navController = navHostController,
+        modifier = Modifier.padding(padding),
         startDestination = Screen.Splash.route,
         popEnterTransition = {
             fadeIn(
