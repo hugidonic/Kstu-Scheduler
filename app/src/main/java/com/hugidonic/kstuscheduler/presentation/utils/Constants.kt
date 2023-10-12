@@ -3,9 +3,12 @@ package com.hugidonic.kstuscheduler.presentation.utils
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hugidonic.domain.models.KorpusModel
+import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.kstuscheduler.R
 import com.hugidonic.kstuscheduler.presentation.navigation.Screen
 import com.hugidonic.kstuscheduler.presentation.navigation.bottombar.BottomNavItem
+import java.time.DayOfWeek
+import java.time.LocalDate
 
 object Constants {
 
@@ -36,6 +39,53 @@ object Constants {
         "Сб",
     )
 
+    fun getScheduleDayInitialData(typeOfWeek: String): List<ScheduleDayModel> {
+        return listOf(
+            ScheduleDayModel(
+                scheduleDayId = "$typeOfWeek/Пн",
+                dayOfWeek = "Пн",
+                typeOfWeek = typeOfWeek,
+                date = getDateBy(DayOfWeek.MONDAY).toString(),
+                subjects = emptyList(),
+            ),
+            ScheduleDayModel(
+                scheduleDayId = "$typeOfWeek/Вт",
+                dayOfWeek = "Вт",
+                typeOfWeek = typeOfWeek,
+                date = getDateBy(DayOfWeek.TUESDAY).toString(),
+                subjects = emptyList(),
+            ),
+            ScheduleDayModel(
+                scheduleDayId = "$typeOfWeek/Ср",
+                dayOfWeek = "Ср",
+                typeOfWeek = typeOfWeek,
+                date = getDateBy(DayOfWeek.WEDNESDAY).toString(),
+                subjects = emptyList(),
+            ),
+            ScheduleDayModel(
+                scheduleDayId = "$typeOfWeek/Чт",
+                dayOfWeek = "Чт",
+                typeOfWeek = typeOfWeek,
+                date = getDateBy(DayOfWeek.THURSDAY).toString(),
+                subjects = emptyList(),
+            ),
+            ScheduleDayModel(
+                scheduleDayId = "$typeOfWeek/Пт",
+                dayOfWeek = "Пт",
+                typeOfWeek = typeOfWeek,
+                date = getDateBy(DayOfWeek.FRIDAY).toString(),
+                subjects = emptyList(),
+            ),
+            ScheduleDayModel(
+                scheduleDayId = "$typeOfWeek/Сб",
+                dayOfWeek = "Сб",
+                typeOfWeek = typeOfWeek,
+                date = getDateBy(DayOfWeek.SATURDAY).toString(),
+                subjects = emptyList(),
+            ),
+        )
+    }
+
     val SUBJECT_COL_WIDTH = 44.dp
     val SUBJECT_DIVIDER_WIDTH = 2.dp
     val ELLIPSE_PADDING = 5.dp
@@ -64,4 +114,8 @@ object Constants {
             route = Screen.Profile.route
         ),
     )
+}
+
+private fun getDateBy(dayOfWeek: DayOfWeek): LocalDate {
+    return LocalDate.now().minusDays(dayOfWeek.ordinal.toLong())
 }
