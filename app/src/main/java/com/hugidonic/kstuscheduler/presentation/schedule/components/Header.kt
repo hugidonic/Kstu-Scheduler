@@ -17,8 +17,10 @@ import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 
 @Composable
 fun Header(
-    state: ScheduleState = ScheduleState(),
-    actions: ScheduleActions
+    group: String,
+    currentTypeOfWeek: String,
+    actions: ScheduleActions,
+    currentPage: Int,
 ) {
     Column(
         modifier = Modifier
@@ -34,17 +36,17 @@ fun Header(
                 .padding(horizontal = 10.dp, vertical = 12.dp)
         ) {
             GroupTextField(
-                group = state.group,
+                group = group,
                 editGroup = actions.onEditGroup
             )
             WeekTypeSwitcher(
-                currentType = state.currentTypeOfWeek,
+                currentType = currentTypeOfWeek,
                 onChangeType = actions.onChangeTypeOfWeek
             )
         }
         CalendarTabs(
             onDayOfWeekClick = actions.onDayOfWeekClick,
-            currentPage = state.activeScheduleDayIdx
+            currentPage = currentPage
         )
     }
 }
@@ -58,9 +60,10 @@ fun PreviewHeader(type: String = "Нечет") {
                 .padding(10.dp)
         ) {
             Header(
-                actions = ScheduleActions(), state = ScheduleState(
-                    currentTypeOfWeek = type
-                )
+                actions = ScheduleActions(),
+                group = "1211-22",
+                currentTypeOfWeek = "Нечет",
+                currentPage = 3
             )
         }
     }

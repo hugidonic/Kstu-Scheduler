@@ -26,7 +26,7 @@ fun CalendarTabs(
     val ITEM_WIDTH: Float = 1 / WEEK_DAYS_COUNT.toFloat()
 
     val selectedTabIndex = minOf(
-        Constants.WEEKDAYS_LIST.count(),
+        Constants.WEEKDAYS_LIST.size,
         currentPage
     )
 

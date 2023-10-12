@@ -1,14 +1,17 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.hugidonic.kstuscheduler.presentation.utils.Constants
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -19,46 +22,56 @@ import com.hugidonic.kstuscheduler.presentation.navigation.ShowBars
 import com.hugidonic.kstuscheduler.presentation.schedule.components.Header
 import com.hugidonic.kstuscheduler.presentation.schedule.components.SubjectsList
 import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
-import java.time.LocalDate
 
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ScheduleScreen(
     state: ScheduleState = ScheduleState(),
-    actions: ScheduleActions = ScheduleActions()
+    actions: ScheduleActions = ScheduleActions(),
+    pagerState: PagerState
 ) {
     ShowBars(flag = true)
-    val currentScheduleDay = if (state.activeScheduleDayIdx < state.weekScheduleDays.size) {
-        state.weekScheduleDays[state.activeScheduleDayIdx]
-    } else {
-        null
-    }
 
     Column {
-        Header(state = state, actions)
-        if (state.isLoading) {
-            Box(
+        Header(
+            group = state.group,
+            currentTypeOfWeek = state.currentTypeOfWeek,
+            actions = actions,
+            currentPage = pagerState.currentPage
+        )
+            HorizontalPager(
+                state = pagerState,
                 modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colorScheme.primary,
-                    strokeWidth = 8.dp,
-                    strokeCap = StrokeCap.Round,
-                    modifier = Modifier.size(100.dp)
-                )
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) { index ->
+                if (state.isLoading || state.weekScheduleDays.isNullOrEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colorScheme.primary,
+                            strokeWidth = 8.dp,
+                            strokeCap = StrokeCap.Round,
+                            modifier = Modifier.size(100.dp)
+                        )
+                    }
+                } else {
+                    SubjectsList(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        subjects = state.weekScheduleDays[index].subjects,
+                        scheduleDate = state.weekScheduleDays[index].date,
+                    )
+                }
             }
-        } else {
-            SubjectsList(
-                modifier = Modifier
-                    .fillMaxSize(),
-                subjects = currentScheduleDay?.subjects ?: emptyList(),
-                scheduleDate = currentScheduleDay?.date ?: LocalDate.now().toString()
-            )
         }
-    }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PreviewScheduleScreen() {
     AppTheme {
@@ -67,10 +80,14 @@ fun PreviewScheduleScreen() {
                 state = ScheduleState(
                     isLoading = false,
                     weekScheduleDays = DummyData.weekSchedule,
-                    activeScheduleDayIdx = 0,
                     currentTypeOfWeek = "Нечет"
                 ),
-                actions = ScheduleActions()
+                actions = ScheduleActions(),
+                pagerState = rememberPagerState(
+                    initialPage = 0,
+                ) {
+                    Constants.WEEKDAYS_LIST.size
+                }
             )
         }
     }

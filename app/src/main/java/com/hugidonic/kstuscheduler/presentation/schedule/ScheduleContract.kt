@@ -10,9 +10,9 @@ import com.hugidonic.domain.models.ScheduleDayModel
  * UI State that represents ScheduleScreen
  **/
 data class ScheduleState(
-    val weekScheduleDays: List<ScheduleDayModel> = emptyList(),
+    val weekScheduleDays: List<ScheduleDayModel>? = null,
     val currentTypeOfWeek: String = "",
-    val activeScheduleDayIdx: Int = 0,
+//    val activeScheduleDayIdx: Int = 0,
     val group: String = "1211-22",
 
     val errorMessage: String = "",

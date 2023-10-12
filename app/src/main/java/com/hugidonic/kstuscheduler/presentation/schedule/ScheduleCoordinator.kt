@@ -7,8 +7,10 @@ import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hugidonic.kstuscheduler.presentation.navigation.Screen
+import com.hugidonic.kstuscheduler.presentation.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 /**
  * Screen's coordinator which is responsible for handling actions from the UI layer
@@ -27,7 +29,6 @@ class ScheduleCoordinator(
     fun onDayOfWeekClick(dayOfWeekIdx: Int) {
         pagerPage.intValue = dayOfWeekIdx
         scope.launch { pagerState.animateScrollToPage(dayOfWeekIdx) }
-        viewModel.onDayOfWeekClick(dayOfWeekIdx)
     }
 
     fun onChangeTypeOfWeek() {
@@ -42,12 +43,12 @@ class ScheduleCoordinator(
         val validated = validateGroup(newGroup)
         viewModel.editGroup(newGroup = validated)
     }
-}
 
-fun validateGroup(newGroup: String): String {
-    var validated = newGroup.trim()
-    validated = validated.replace("\n", "")
-    return validated
+    private fun validateGroup(newGroup: String): String {
+        var validated = newGroup.trim()
+        validated = validated.replace("\n", "")
+        return validated
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -63,10 +64,10 @@ fun rememberScheduleCoordinator(
     }
 
     val pagerState = rememberPagerState(
-        initialPage = 0,
+        initialPage = viewModel.currentDayOfWeek,
         initialPageOffsetFraction = 0f
     ) {
-        pagerPage.intValue
+        Constants.WEEKDAYS_LIST.size
     }
 
     return remember(viewModel) {

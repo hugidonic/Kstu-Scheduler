@@ -1,19 +1,26 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
+import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.domain.usecases.GetCurrentDateUseCase
 import com.hugidonic.domain.usecases.GetTypeOfWeekUseCase
 import com.hugidonic.domain.usecases.GetWeekScheduleDayUseCase
 import com.hugidonic.domain.utils.Resource
+import com.hugidonic.kstuscheduler.presentation.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.DayOfWeek
+import java.time.LocalDate
 import javax.inject.Inject
 
+@OptIn(ExperimentalFoundationApi::class)
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
@@ -25,13 +32,12 @@ class ScheduleViewModel @Inject constructor(
     private val _stateFlow: MutableStateFlow<ScheduleState> = MutableStateFlow(ScheduleState())
     val stateFlow: StateFlow<ScheduleState> = _stateFlow.asStateFlow()
 
-    private var currentDayOfWeek = getCurrentDateUseCase().dayOfWeek.ordinal
+    val currentDayOfWeek = getCurrentDateUseCase().dayOfWeek.ordinal
     private val currentTypeOfWeek = getTypeOfWeekUseCase()
 
     init {
         _stateFlow.value = _stateFlow.value.copy(
-            activeScheduleDayIdx = currentDayOfWeek,
-            currentTypeOfWeek = currentTypeOfWeek
+            currentTypeOfWeek = currentTypeOfWeek,
         )
 
         getWeekSchedule(currentTypeOfWeek)
@@ -87,13 +93,5 @@ class ScheduleViewModel @Inject constructor(
             group = newGroup
         )
         getWeekSchedule(typeOfWeek = currentTypeOfWeek)
-    }
-
-    fun onDayOfWeekClick(dayOfWeekIdx: Int) {
-        if (dayOfWeekIdx in 0..5) {
-            _stateFlow.value = _stateFlow.value.copy(
-                activeScheduleDayIdx = dayOfWeekIdx
-            )
-        }
     }
 }

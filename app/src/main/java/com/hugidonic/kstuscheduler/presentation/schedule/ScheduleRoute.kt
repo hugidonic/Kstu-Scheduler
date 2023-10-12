@@ -1,11 +1,13 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ScheduleRoute(
     navController: NavController,
@@ -20,7 +22,7 @@ fun ScheduleRoute(
 
     // UI Rendering
     ProvideScheduleActions(actions = uiActions) {
-        ScheduleScreen(uiState, uiActions)
+        ScheduleScreen(uiState, uiActions, pagerState = coordinator.pagerState)
     }
 }
 
