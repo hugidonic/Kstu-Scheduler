@@ -13,6 +13,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.hugidonic.kstuscheduler.presentation.prepoddetails.PrepodDetailsRoute
 import com.hugidonic.kstuscheduler.presentation.schedule.ScheduleRoute
 import com.hugidonic.kstuscheduler.presentation.splash.AnimatedSplashScreen
 import com.hugidonic.kstuscheduler.presentation.subjectdetails.SubjectDetailsRoute
@@ -55,7 +56,16 @@ fun AppNavGraph(
                 type = NavType.IntType
             })
         ) {
-            SubjectDetailsRoute()
+            SubjectDetailsRoute(navController = navHostController)
+        }
+
+        composable(
+            Screen.PrepodDetails.route,
+            arguments = listOf(navArgument("prepodId") {
+                type = NavType.IntType
+            })
+        ) {
+            PrepodDetailsRoute()
         }
     }
 }
