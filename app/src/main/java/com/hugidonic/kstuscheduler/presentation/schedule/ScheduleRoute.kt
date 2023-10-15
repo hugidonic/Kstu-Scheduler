@@ -1,6 +1,7 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -11,8 +12,10 @@ import androidx.navigation.NavController
 @Composable
 fun ScheduleRoute(
     navController: NavController,
+    snackbarHostState: SnackbarHostState
 ) {
-    val coordinator: ScheduleCoordinator = rememberScheduleCoordinator(navController = navController)
+    val coordinator: ScheduleCoordinator =
+        rememberScheduleCoordinator(navController = navController, snackbarHostState = snackbarHostState)
 
     // State observing and declarations
     val uiState by coordinator.screenStateFlow.collectAsStateWithLifecycle(ScheduleState())

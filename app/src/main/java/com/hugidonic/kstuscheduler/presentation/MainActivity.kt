@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -32,6 +30,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+                    val snackbarHostState = remember { SnackbarHostState() }
 
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
@@ -50,13 +49,20 @@ class MainActivity : ComponentActivity() {
 
                     Scaffold(
                         containerColor = MaterialTheme.colorScheme.background,
+                        snackbarHost = {
+                            SnackbarHost(snackbarHostState)
+                        },
                         topBar = {
                             if (isTopBarVisible) {
                                 TopBar(navController = navController)
                             }
                         },
                     ) { padding ->
-                        AppNavGraph(navHostController = navController, padding = padding)
+                        AppNavGraph(
+                            navHostController = navController,
+                            padding = padding,
+                            snackbarHostState = snackbarHostState
+                        )
                     }
                 }
             }

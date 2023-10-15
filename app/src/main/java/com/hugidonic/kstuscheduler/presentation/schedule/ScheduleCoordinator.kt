@@ -3,14 +3,15 @@ package com.hugidonic.kstuscheduler.presentation.schedule
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hugidonic.kstuscheduler.presentation.navigation.Screen
 import com.hugidonic.kstuscheduler.presentation.utils.Constants
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 /**
  * Screen's coordinator which is responsible for handling actions from the UI layer
@@ -20,11 +21,24 @@ import java.time.LocalDate
 class ScheduleCoordinator(
     val viewModel: ScheduleViewModel,
     val pagerState: PagerState,
+    val snackbarHostState: SnackbarHostState,
     val scope: CoroutineScope,
     val pagerPage: MutableIntState,
     val navController: NavController
 ) {
     val screenStateFlow = viewModel.stateFlow
+
+    init {
+        scope.launch {
+            viewModel.eventFlow.collectLatest {
+                when (it) {
+                    is ScheduleUIEvent.ShowSnackbar -> {
+                        snackbarHostState.showSnackbar(message = it.message)
+                    }
+                }
+            }
+        }
+    }
 
     fun onDayOfWeekClick(dayOfWeekIdx: Int) {
         pagerPage.intValue = dayOfWeekIdx
@@ -55,6 +69,7 @@ class ScheduleCoordinator(
 @Composable
 fun rememberScheduleCoordinator(
     viewModel: ScheduleViewModel = hiltViewModel(),
+    snackbarHostState: SnackbarHostState,
     navController: NavController
 ): ScheduleCoordinator {
     val scope = rememberCoroutineScope()
@@ -75,6 +90,7 @@ fun rememberScheduleCoordinator(
             viewModel = viewModel,
             pagerPage = pagerPage,
             pagerState = pagerState,
+            snackbarHostState = snackbarHostState,
             scope = scope,
             navController = navController
         )

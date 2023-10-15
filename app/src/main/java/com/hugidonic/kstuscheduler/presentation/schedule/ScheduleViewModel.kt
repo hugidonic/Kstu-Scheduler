@@ -1,23 +1,16 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.domain.usecases.GetCurrentDateUseCase
 import com.hugidonic.domain.usecases.GetTypeOfWeekUseCase
 import com.hugidonic.domain.usecases.GetWeekScheduleDayUseCase
 import com.hugidonic.domain.utils.Resource
-import com.hugidonic.kstuscheduler.presentation.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.time.DayOfWeek
-import java.time.LocalDate
 import javax.inject.Inject
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -31,6 +24,9 @@ class ScheduleViewModel @Inject constructor(
 
     private val _stateFlow: MutableStateFlow<ScheduleState> = MutableStateFlow(ScheduleState())
     val stateFlow: StateFlow<ScheduleState> = _stateFlow.asStateFlow()
+
+    private val _eventFlow = MutableSharedFlow<ScheduleUIEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     val currentDayOfWeek = getCurrentDateUseCase().dayOfWeek.ordinal
     private val currentTypeOfWeek = getTypeOfWeekUseCase()
@@ -46,6 +42,13 @@ class ScheduleViewModel @Inject constructor(
     private fun getWeekSchedule(typeOfWeek: String = currentTypeOfWeek) {
         viewModelScope.launch {
             getWeekScheduleDayUseCase(isFetchFromApi = true, typeOfWeek = typeOfWeek)
+                .catch {
+                    _eventFlow.emit(
+                        ScheduleUIEvent.ShowSnackbar(
+                            it.message ?: "Something went wrong..."
+                        )
+                    )
+                }
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
@@ -58,8 +61,11 @@ class ScheduleViewModel @Inject constructor(
 
                         is Resource.Error -> {
                             result.data?.let {
-                                _stateFlow.value = _stateFlow.value.copy(
-                                    errorMessage = result.message ?: "",
+                                _eventFlow.emit(
+                                    ScheduleUIEvent.ShowSnackbar(
+                                        result.message ?: "Something went wrong..."
+                                    )
+
                                 )
                             }
                         }
@@ -79,19 +85,18 @@ class ScheduleViewModel @Inject constructor(
             _stateFlow.value = _stateFlow.value.copy(
                 currentTypeOfWeek = "Нечет"
             )
-            getWeekSchedule(typeOfWeek = "Нечет")
         } else {
             _stateFlow.value = _stateFlow.value.copy(
                 currentTypeOfWeek = "Чет"
             )
-            getWeekSchedule(typeOfWeek = "Чет")
         }
+        getWeekSchedule()
     }
 
     fun editGroup(newGroup: String) {
         _stateFlow.value = _stateFlow.value.copy(
             group = newGroup
         )
-        getWeekSchedule(typeOfWeek = currentTypeOfWeek)
+        getWeekSchedule()
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -19,6 +20,7 @@ import com.hugidonic.kstuscheduler.presentation.subjectdetails.SubjectDetailsRou
 @Composable
 fun AppNavGraph(
     navHostController: NavHostController,
+    snackbarHostState: SnackbarHostState,
     padding: PaddingValues,
 ) {
 
@@ -44,7 +46,7 @@ fun AppNavGraph(
         }
 
         composable(Screen.Schedule.route) {
-            ScheduleRoute(navController = navHostController)
+            ScheduleRoute(navController = navHostController, snackbarHostState = snackbarHostState)
         }
 
         composable(
