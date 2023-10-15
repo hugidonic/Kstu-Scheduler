@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,9 +27,8 @@ import com.hugidonic.kstuscheduler.presentation.ui.theme.White
 fun SubjectCard(
     modifier: Modifier = Modifier,
     subjectInfo: SubjectModel,
-    scheduleActions: ScheduleActions = LocalScheduleActions.current
+    scheduleActions: ScheduleActions = LocalScheduleActions.current,
 ) {
-
     Card(
         modifier = modifier
             .padding(5.dp)

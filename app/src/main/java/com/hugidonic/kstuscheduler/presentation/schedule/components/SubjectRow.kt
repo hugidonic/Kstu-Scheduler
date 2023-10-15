@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.domain.dummy.DummyData
@@ -20,11 +21,14 @@ import com.hugidonic.kstuscheduler.presentation.utils.Constants
 @Composable
 fun SubjectRow(
     subject: SubjectModel,
+    isDisabled: Boolean = false,
     isActive: Boolean = false,
 ) {
     val ELLIPSE_SIZE = Constants.getEllipseSize(isActive)
     val SPACER_WIDTH = Constants.getSubjectSpacerWidth(isActive)
-    Column {
+    Column(
+        modifier = Modifier.alpha(if (isDisabled) .5f else 1f)
+    ) {
         Row(
             modifier = Modifier
                 .height(IntrinsicSize.Min)
