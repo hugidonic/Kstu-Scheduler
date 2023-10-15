@@ -19,7 +19,9 @@ data class SubjectDetailsState(
  * SubjectDetails Actions emitted from the UI Layer
  * passed to the coordinator to handle
  **/
-class SubjectDetailsActions()
+data class SubjectDetailsActions(
+    val onPrepodClick: (prepodId: Int) -> Unit = {}
+)
 
 /**
  * Compose Utility to retrieve actions from nested components

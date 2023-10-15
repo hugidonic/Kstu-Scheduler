@@ -44,7 +44,11 @@ fun SubjectDetailsScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             KorpusMap(korpus = subjectKorpus)
-            Details(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp), subjectInfo = subjectInfo)
+            Details(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
+                subjectInfo = subjectInfo,
+                onPrepodClick = actions.onPrepodClick
+            )
         }
     }
 }
