@@ -14,11 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hugidonic.domain.dummy.DummyData
 import com.hugidonic.domain.models.SubjectModel
+import com.hugidonic.kstuscheduler.presentation.schedule.ScheduleParser
 import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import com.hugidonic.kstuscheduler.presentation.utils.Constants
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun SubjectsList(
@@ -52,60 +50,20 @@ fun SubjectsList(
             items(
                 items = subjects,
             ) { classSubject ->
-                val isActive =
-                    isSubjectActive(
-                        startTime = classSubject.startTime,
-                        endTime = classSubject.endTime,
-                        date = scheduleDate
-                    )
-                val isDisabled = isSubjectDisabled(
-                    date = scheduleDate,
-                    endTime = classSubject.endTime
-                )
+                val subjectState =
+                    ScheduleParser.getSubjectState(scheduleDate, classSubject.startTime, classSubject.endTime)
                 SubjectRow(
                     subject = classSubject,
-                    isDisabled = isDisabled,
-                    isActive = isActive
+                    subjectState = subjectState
                 )
             }
             item {
-                val SPACER_WIDTH = Constants.getSubjectSpacerWidth(isActive = false)
-                Row(
-                    modifier = Modifier
-                        .height(IntrinsicSize.Min)
-                        .padding(vertical = 5.dp)
-                ) {
-                    Spacer(modifier = Modifier.width(SPACER_WIDTH))
-                    EllipseImage(
-                        isActive = false,
-                        modifier = Modifier.size(12.dp)
-                    )
-                }
+                EllipseWithSpace(
+                    isActive = false
+                )
             }
         }
     }
-}
-
-fun isSubjectActive(date: String, startTime: String, endTime: String): Boolean {
-    val startTimeDate = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HH:mm"))
-    val endTimeDate = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"))
-    val currentTime = LocalTime.now()
-
-    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-    val scheduleDate = LocalDate.parse(date, dateFormatter)
-    val currentDate = LocalDate.now()
-
-    return scheduleDate == currentDate && currentTime in startTimeDate.minusHours(1)..endTimeDate
-}
-
-fun isSubjectDisabled(date: String, endTime: String): Boolean {
-    val endTimeDate = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HH:mm"))
-    val currentTime = LocalTime.now()
-    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-    val scheduleDate = LocalDate.parse(date, dateFormatter)
-    val currentDate = LocalDate.now()
-
-    return scheduleDate == currentDate && currentTime > endTimeDate
 }
 
 @Composable

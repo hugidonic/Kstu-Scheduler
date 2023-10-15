@@ -17,8 +17,21 @@ data class ScheduleState(
     val isLoading: Boolean = false,
 )
 
+/**
+ * UI events
+ **/
 sealed class ScheduleUIEvent {
     class ShowSnackbar(val message: String): ScheduleUIEvent()
+}
+
+/**
+ * UI State that represents ScheduleScreen
+ **/
+
+enum class SubjectState {
+    ACTIVE,
+    DISABLED,
+    DEFAULT,
 }
 
 /**
