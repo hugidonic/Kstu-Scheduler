@@ -9,15 +9,15 @@ import com.hugidonic.kstuscheduler.R
 
 @Composable
 fun EllipseImage(
-	modifier: Modifier = Modifier,
-	isActive: Boolean = false,
+    modifier: Modifier = Modifier,
+    isActive: Boolean = false,
 ) {
-	val activeResId = if (isActive) R.drawable.active_ellipse else R.drawable.ellipse
+    val activeResId = if (isActive) R.drawable.ellipse_active else R.drawable.ellipse
 
-	Image(
-		painter = painterResource(id=activeResId),
-		contentDescription = null,
-		modifier = modifier,
-		contentScale = ContentScale.Fit,
-	)
+    Image(
+        painter = painterResource(id = activeResId),
+        contentDescription = null,
+        modifier = modifier,
+        contentScale = ContentScale.Fit,
+    )
 }

@@ -23,6 +23,9 @@ interface SubjectDao {
     @Query("SELECT * FROM subject WHERE subjectTitle = :subjectTitle LIMIT 1")
     suspend fun getSubjectByTitle(subjectTitle: String): SubjectEntity
 
+    @Query("SELECT * FROM subject WHERE subjectId = :subjectId LIMIT 1")
+    suspend fun getSubjectById(subjectId: Int): SubjectEntity
+
     @Query(
         """
 		SELECT * FROM subject 

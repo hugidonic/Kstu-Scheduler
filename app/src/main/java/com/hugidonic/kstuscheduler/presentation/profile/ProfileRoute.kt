@@ -10,7 +10,7 @@ fun ProfileRoute(
     coordinator: ProfileCoordinator = rememberProfileCoordinator()
 ) {
     // State observing and declarations
- val uiState by coordinator.screenStateFlow.collectAsStateWithLifecycle(ProfileState())
+    val uiState by coordinator.screenStateFlow.collectAsStateWithLifecycle(ProfileState())
 
     // UI Actions
     val actions = rememberProfileActions(coordinator)

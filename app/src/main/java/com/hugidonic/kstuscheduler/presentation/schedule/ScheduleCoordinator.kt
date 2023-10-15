@@ -3,10 +3,14 @@ package com.hugidonic.kstuscheduler.presentation.schedule
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.hugidonic.domain.models.SubjectModel
+import androidx.navigation.NavController
+import com.hugidonic.kstuscheduler.presentation.navigation.Screen
+import com.hugidonic.kstuscheduler.presentation.utils.Constants
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
@@ -17,41 +21,56 @@ import kotlinx.coroutines.launch
 class ScheduleCoordinator(
     val viewModel: ScheduleViewModel,
     val pagerState: PagerState,
+    val snackbarHostState: SnackbarHostState,
     val scope: CoroutineScope,
-    val pagerPage: MutableIntState
+    val pagerPage: MutableIntState,
+    val navController: NavController
 ) {
     val screenStateFlow = viewModel.stateFlow
+
+    init {
+        scope.launch {
+            viewModel.eventFlow.collectLatest {
+                when (it) {
+                    is ScheduleUIEvent.ShowSnackbar -> {
+                        snackbarHostState.showSnackbar(message = it.message)
+                    }
+                }
+            }
+        }
+    }
 
     fun onDayOfWeekClick(dayOfWeekIdx: Int) {
         pagerPage.intValue = dayOfWeekIdx
         scope.launch { pagerState.animateScrollToPage(dayOfWeekIdx) }
-        viewModel.onDayOfWeekClick(dayOfWeekIdx)
     }
 
     fun onChangeTypeOfWeek() {
         viewModel.changeTypeOfWeek()
     }
 
-    fun onSubjectClick(subject: SubjectModel) {
-        // TODO handle subject click
+    fun onSubjectClick(subjectId: Int) {
+        navController.navigate(Screen.SubjectDetails.createRoute(subjectId = subjectId))
     }
 
     fun onEditGroupClick(newGroup: String) {
         val validated = validateGroup(newGroup)
         viewModel.editGroup(newGroup = validated)
     }
-}
 
-fun validateGroup(newGroup: String): String {
-    var validated = newGroup.trim()
-    validated = validated.replace("\n", "")
-    return validated
+    private fun validateGroup(newGroup: String): String {
+        var validated = newGroup.trim()
+        validated = validated.replace("\n", "")
+        return validated
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun rememberScheduleCoordinator(
     viewModel: ScheduleViewModel = hiltViewModel(),
+    snackbarHostState: SnackbarHostState,
+    navController: NavController
 ): ScheduleCoordinator {
     val scope = rememberCoroutineScope()
 
@@ -60,10 +79,10 @@ fun rememberScheduleCoordinator(
     }
 
     val pagerState = rememberPagerState(
-        initialPage = 0,
+        initialPage = viewModel.currentDayOfWeek,
         initialPageOffsetFraction = 0f
     ) {
-        pagerPage.intValue
+        Constants.WEEKDAYS_LIST.size
     }
 
     return remember(viewModel) {
@@ -71,7 +90,9 @@ fun rememberScheduleCoordinator(
             viewModel = viewModel,
             pagerPage = pagerPage,
             pagerState = pagerState,
+            snackbarHostState = snackbarHostState,
             scope = scope,
+            navController = navController
         )
     }
 }

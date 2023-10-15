@@ -1,10 +1,7 @@
 package com.hugidonic.kstuscheduler.di
 
 import com.hugidonic.domain.repositories.ScheduleRepository
-import com.hugidonic.domain.usecases.GetCurrentDateUseCase
-import com.hugidonic.domain.usecases.GetScheduleDayUseCase
-import com.hugidonic.domain.usecases.GetTypeOfWeekUseCase
-import com.hugidonic.domain.usecases.GetWeekScheduleDayUseCase
+import com.hugidonic.domain.usecases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +35,11 @@ class DomainModule {
     @Provides
     fun provideGetCurrentDateUseCase(scheduleRepository: ScheduleRepository): GetCurrentDateUseCase {
         return GetCurrentDateUseCase(scheduleRepository = scheduleRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetSubjectDetailsById(scheduleRepository: ScheduleRepository): GetSubjectDetailsById {
+        return GetSubjectDetailsById(scheduleRepository = scheduleRepository)
     }
 }

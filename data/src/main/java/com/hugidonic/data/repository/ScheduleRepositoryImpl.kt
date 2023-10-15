@@ -9,6 +9,7 @@ import com.hugidonic.data.database.SubjectDao
 import com.hugidonic.data.remote.ApiService
 import com.hugidonic.data.remote.dto.ScheduleDayDto
 import com.hugidonic.domain.models.ScheduleDayModel
+import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.repositories.ScheduleRepository
 import com.hugidonic.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.Period
+import java.time.Duration
 import javax.inject.Inject
 
 class ScheduleRepositoryImpl @Inject constructor(
@@ -47,10 +48,10 @@ class ScheduleRepositoryImpl @Inject constructor(
                 data = localWeekSchedule
             )
         )
-        emit(Resource.Loading(false))
 
         val shouldLoadFromCache = localWeekSchedule.isNotEmpty() && !isFetchFromApi
         if (shouldLoadFromCache) {
+            emit(Resource.Loading(false))
             return@flow
         }
 
@@ -92,6 +93,22 @@ class ScheduleRepositoryImpl @Inject constructor(
         emit(Resource.Loading(false))
     }
 
+    override suspend fun getSubjectById(subjectId: Int): Flow<Resource<SubjectModel>>  = flow{
+        emit(Resource.Loading(true))
+
+        try {
+            val localSubject = subjectDao.getSubjectById(subjectId)
+            emit(Resource.Success(
+                data = localSubject.toSubjectModel()
+            ))
+            emit(Resource.Loading(false))
+        } catch (e: IOException) {
+            emit(Resource.Error(
+                message = "Couldn't load subject from DB..."
+            ))
+        }
+    }
+
     override suspend fun getScheduleDayFromDB(typeOfWeek: String, dayOfWeek: String): ScheduleDayModel? {
         val scheduleId = "${typeOfWeek}/${dayOfWeek}"
         val scheduleDayEntity = scheduleDao.getScheduleDay(scheduleDayId = scheduleId)
@@ -131,10 +148,11 @@ class ScheduleRepositoryImpl @Inject constructor(
             LocalDate.of(currentDate.year, 9, 1)
         }
 
+//        TODO: Handle this error with unsupported unit Seconds
         val firstWeekMonday = semesterBeginDate.minusDays(semesterBeginDate.dayOfWeek.ordinal.toLong())
 
-        val periodDays = Period.between(firstWeekMonday, currentDate).days
-        val weeks = periodDays / 7
+        val periodDays = Duration.between(firstWeekMonday.atStartOfDay(), currentDate.atStartOfDay()).toDays()
+        val weeks = (periodDays / 7).toInt()
 
         return if ((weeks + 1) % 2 == 0) "Чет" else "Нечет"
     }

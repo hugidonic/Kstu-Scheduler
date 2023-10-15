@@ -1,6 +1,7 @@
 package com.hugidonic.domain.models
 
 data class SubjectModel(
+	val subjectId: Int,
 	val scheduleDayId: String,
 	val title: String,
 	val shortTitle: String,

@@ -1,11 +1,10 @@
 package com.hugidonic.domain.repositories
 
 import com.hugidonic.domain.models.ScheduleDayModel
+import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 interface ScheduleRepository {
     suspend fun getWeekSchedule(
@@ -17,6 +16,8 @@ interface ScheduleRepository {
         typeOfWeek: String,
         dayOfWeek: String,
     ): ScheduleDayModel?
+
+    suspend fun getSubjectById(subjectId: Int): Flow<Resource<SubjectModel>>
 
     fun getTypeOfWeek(): String
     fun getCurrentDate(): LocalDate

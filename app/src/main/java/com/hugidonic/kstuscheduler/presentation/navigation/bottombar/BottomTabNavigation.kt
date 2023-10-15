@@ -1,8 +1,15 @@
 package com.hugidonic.kstuscheduler.presentation.navigation.bottombar
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -14,32 +21,40 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.hugidonic.kstuscheduler.presentation.utils.Constants
 
 @Composable
-fun BottomNavigationBar(navController: NavHostController) {
-    BottomNavigation(
-        backgroundColor = MaterialTheme.colors.surface,
-        modifier = Modifier.shadow(
-            elevation = 10.dp,
-            spotColor = MaterialTheme.colors.onSurface
-        ),
-        elevation = 10.dp,
+fun BottomNavigationBar(
+    navController: NavHostController,
+    isBottomBarVisible: Boolean
+) {
+    AnimatedVisibility(
+        visible = isBottomBarVisible,
+        enter = slideInVertically(initialOffsetY = { it }),
+        exit = slideOutVertically(targetOffsetY = { it }),
     ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination = navBackStackEntry?.destination
-
-        Row(
-            modifier = Modifier
-                .background(MaterialTheme.colors.surface)
-                .fillMaxHeight()
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
+        NavigationBar(
+            containerColor = MaterialTheme.colorScheme.background,
+            modifier = Modifier.shadow(
+                elevation = 10.dp,
+                spotColor = MaterialTheme.colorScheme.onSurface
+            ),
         ) {
-            Constants.BottomNavItems.forEach { screen ->
-                BottomTab(
-                    screen = screen,
-                    currentDestination = currentDestination,
-                    navController = navController
-                )
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentDestination = navBackStackEntry?.destination
+
+            Row(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .fillMaxHeight()
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Constants.BottomNavItems.forEach { screen ->
+                    BottomTab(
+                        screen = screen,
+                        currentDestination = currentDestination,
+                        navController = navController
+                    )
+                }
             }
         }
     }

@@ -4,17 +4,15 @@ import androidx.compose.ui.graphics.Color
 
 val Black = Color(0xFF333333)
 val White = Color(0xFFEEEEEE)
-val OffWhite = Color(0xFFEDEEF0)
+val OffWhite = Color(0xFFDDDDDD)
 val DarkSurface = Color(0xFF3F3F3F)
 val LightSurface = Color(0xFFD9D9D9)
 val Gray = Color.Gray
 
-val Red100 = Color(0xFF931C1F)
-val Red200 = Color(0xFFa23b34)
-val Red300 = Color(0xFFb1544a)
-val Red400 = Color(0xFFbe6c62)
-val Red500 = Color(0xFFcb847a)
-val Red600 = Color(0xFFd79c93)
+val Red100 = Color(0xFF712224)
+val Red200 = Color(0xFF931C1F)
+val Red300 = Color(0xFFB1544A)
+
 
 // For body background color
 val Dark100 = Color(0xFF121212)
@@ -38,4 +36,4 @@ val Mixed500 = Color(0xFF7a7272)
 
 // For on background texts color
 val Dark600 = Color(0xFF8b8b8b)
-val Mixed600 = Color(0xFF938d8c)
+val Mixed600 = Color(0xFF565151)
