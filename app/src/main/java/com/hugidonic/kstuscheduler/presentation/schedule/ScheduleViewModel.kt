@@ -34,19 +34,20 @@ class ScheduleViewModel @Inject constructor(
             currentTypeOfWeek = currentTypeOfWeek,
         )
 
-        getWeekSchedule(currentTypeOfWeek)
+        getWeekSchedule()
     }
 
-    private fun getWeekSchedule(typeOfWeek: String = currentTypeOfWeek) {
+    private fun getWeekSchedule(
+        isFetchFromApi: Boolean = false,
+        groupNumber: String = _stateFlow.value.group,
+        typeOfWeek: String = _stateFlow.value.currentTypeOfWeek
+    ) {
         viewModelScope.launch {
-            getWeekScheduleDayUseCase(isFetchFromApi = true, typeOfWeek = typeOfWeek)
-                .catch {
-                    _eventFlow.emit(
-                        ScheduleUIEvent.ShowSnackbar(
-                            it.message ?: "Something went wrong..."
-                        )
-                    )
-                }
+            getWeekScheduleDayUseCase(
+                isFetchFromApi = isFetchFromApi,
+                groupNumber = groupNumber,
+                typeOfWeek = typeOfWeek
+            )
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
@@ -56,14 +57,12 @@ class ScheduleViewModel @Inject constructor(
                                 )
                             }
                         }
-
                         is Resource.Error -> {
                             result.data?.let {
                                 _eventFlow.emit(
                                     ScheduleUIEvent.ShowSnackbar(
                                         result.message ?: "Something went wrong..."
                                     )
-
                                 )
                             }
                         }
@@ -88,13 +87,18 @@ class ScheduleViewModel @Inject constructor(
                 currentTypeOfWeek = "Чет"
             )
         }
-        getWeekSchedule()
+        getWeekSchedule(typeOfWeek = _stateFlow.value.currentTypeOfWeek)
+    }
+
+    fun refreshSchedule() {
+        getWeekSchedule(isFetchFromApi = true)
     }
 
     fun editGroup(newGroup: String) {
         _stateFlow.value = _stateFlow.value.copy(
             group = newGroup
         )
+//        isGroupExist()
         getWeekSchedule()
     }
 }

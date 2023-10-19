@@ -1,7 +1,10 @@
 package com.hugidonic.kstuscheduler.presentation.schedule.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -62,8 +65,8 @@ fun SubjectsList(
                     isActive = false
                 )
             }
+            }
         }
-    }
 }
 
 @Composable

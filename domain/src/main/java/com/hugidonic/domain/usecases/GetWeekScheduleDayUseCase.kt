@@ -8,8 +8,13 @@ import kotlinx.coroutines.flow.Flow
 class GetWeekScheduleDayUseCase(private val scheduleRepository: ScheduleRepository) {
     suspend operator fun invoke(
         isFetchFromApi: Boolean = false,
+        groupNumber: String,
         typeOfWeek: String
     ): Flow<Resource<List<ScheduleDayModel>>> {
-        return scheduleRepository.getWeekSchedule(isFetchFromApi = isFetchFromApi, typeOfWeek = typeOfWeek)
+        return scheduleRepository.getWeekSchedule(
+            groupNumber = groupNumber,
+            isFetchFromApi = isFetchFromApi,
+            typeOfWeek = typeOfWeek
+        )
     }
 }

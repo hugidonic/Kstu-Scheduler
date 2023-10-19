@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.hugidonic.domain.models.ScheduleDayModel
-import java.util.concurrent.Flow
 
 
 /**
@@ -15,6 +14,7 @@ data class ScheduleState(
     val currentTypeOfWeek: String = "",
     val group: String = "1211-22",
     val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
 )
 
 /**
@@ -22,6 +22,7 @@ data class ScheduleState(
  **/
 sealed class ScheduleUIEvent {
     class ShowSnackbar(val message: String): ScheduleUIEvent()
+//    class Refresh(val isRefreshing: Boolean): ScheduleUIEvent()
 }
 
 /**
@@ -43,6 +44,7 @@ data class ScheduleActions(
     val onSubjectClick: (subjectId: Int) -> Unit = {},
     val onChangeTypeOfWeek: () -> Unit = {},
     val onEditGroup: (newGroup: String) -> Unit = {},
+    val onRefresh: () -> Unit = {}
 )
 
 /**

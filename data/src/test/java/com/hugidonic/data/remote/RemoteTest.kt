@@ -18,7 +18,7 @@ class RemoteTest {
 
     @Test
     fun `Should get week schedule for chet week`() = runTest {
-        val weekSchedule = api.getChetWeekSchedule()
+        val weekSchedule = api.getWeekScheduleForGroup(groupNumber = "1211-22", typeOfWeek = "chet")
 
         Truth.assertThat(weekSchedule).isNotEmpty()
         weekSchedule.forEach {

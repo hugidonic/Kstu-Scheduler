@@ -1,5 +1,6 @@
 package com.hugidonic.data.repository
 
+import android.util.Log
 import com.hugidonic.data.converters.toModel
 import com.hugidonic.data.converters.toScheduleDayEntity
 import com.hugidonic.data.converters.toSubjectEntity
@@ -17,8 +18,8 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import java.time.DayOfWeek
-import java.time.LocalDate
 import java.time.Duration
+import java.time.LocalDate
 import javax.inject.Inject
 
 class ScheduleRepositoryImpl @Inject constructor(
@@ -29,6 +30,7 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     override suspend fun getWeekSchedule(
         isFetchFromApi: Boolean,
+        groupNumber: String,
         typeOfWeek: String
     ): Flow<Resource<List<ScheduleDayModel>>> = flow {
         emit(Resource.Loading(true))
@@ -49,26 +51,33 @@ class ScheduleRepositoryImpl @Inject constructor(
             )
         )
 
-        val shouldLoadFromCache = localWeekSchedule.isNotEmpty() && !isFetchFromApi
+        val shouldLoadFromCache = localWeekSchedule.map {
+            it.subjects.isNotEmpty()
+        }.any { it } && !isFetchFromApi
         if (shouldLoadFromCache) {
+            Log.d("cache", localWeekSchedule.toString())
             emit(Resource.Loading(false))
             return@flow
         }
 
         try {
-            val weekScheduleDto: List<ScheduleDayDto> = if (typeOfWeek == "Чет") {
-                apiService.getChetWeekSchedule()
-            } else {
-                apiService.getNechetWeekSchedule()
-            }
+            val weekScheduleDto = apiService.getWeekScheduleForGroup(
+                groupNumber = groupNumber,
+                typeOfWeek = typeOfWeek
+            )
             saveWeekScheduleDtoToDb(weekScheduleDto = weekScheduleDto)
-        } catch (e: IOException) {
-            emit(Resource.Error(data = localWeekSchedule, message = "Something went wrong..."))
         } catch (e: HttpException) {
             emit(
                 Resource.Error(
                     data = localWeekSchedule,
                     message = "Couldn't load data from server. Check your internet connection"
+                )
+            )
+        } catch (e: Throwable) {
+            emit(
+                Resource.Error(
+                    data = localWeekSchedule,
+                    message = "Something went wrong..."
                 )
             )
         }
