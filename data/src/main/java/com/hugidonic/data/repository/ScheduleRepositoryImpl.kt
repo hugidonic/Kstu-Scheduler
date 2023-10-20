@@ -1,6 +1,8 @@
 package com.hugidonic.data.repository
 
 import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.hugidonic.data.converters.toModel
 import com.hugidonic.data.converters.toScheduleDayEntity
 import com.hugidonic.data.converters.toSubjectEntity
@@ -8,6 +10,7 @@ import com.hugidonic.data.converters.toSubjectModel
 import com.hugidonic.data.database.ScheduleDao
 import com.hugidonic.data.database.SubjectDao
 import com.hugidonic.data.remote.ApiService
+import com.hugidonic.data.remote.dto.ErrorResponseDto
 import com.hugidonic.data.remote.dto.ScheduleDayDto
 import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.domain.models.SubjectModel
@@ -35,7 +38,8 @@ class ScheduleRepositoryImpl @Inject constructor(
     ): Flow<Resource<List<ScheduleDayModel>>> = flow {
         emit(Resource.Loading(true))
 
-        val localWeekSchedule: List<ScheduleDayModel> = scheduleDao.getWeekScheduleByType(typeOfWeek = typeOfWeek).map {
+        val localWeekScheduleEntities = scheduleDao.getWeekScheduleByType(typeOfWeek = typeOfWeek)
+        val localWeekSchedule: List<ScheduleDayModel> = localWeekScheduleEntities.map {
             ScheduleDayModel(
                 scheduleDayId = it.scheduleDayInfo.scheduleDayId,
                 dayOfWeek = it.scheduleDayInfo.dayOfWeek,
@@ -51,9 +55,11 @@ class ScheduleRepositoryImpl @Inject constructor(
             )
         )
 
-        val shouldLoadFromCache = localWeekSchedule.map {
-            it.subjects.isNotEmpty()
-        }.any { it } && !isFetchFromApi
+        val isLocalEmpty = localWeekSchedule.map() {it ->
+            it.subjects.isEmpty()
+        }.all { it }
+        val shouldLoadFromCache = !isLocalEmpty && !isFetchFromApi
+
         if (shouldLoadFromCache) {
             Log.d("cache", localWeekSchedule.toString())
             emit(Resource.Loading(false))
@@ -67,17 +73,22 @@ class ScheduleRepositoryImpl @Inject constructor(
             )
             saveWeekScheduleDtoToDb(weekScheduleDto = weekScheduleDto)
         } catch (e: HttpException) {
+//            Getting the message from error.
+            val type = object : TypeToken<ErrorResponseDto>() {}.type
+            val errorMessage = Gson().fromJson<ErrorResponseDto>(
+                e.response()?.errorBody()?.charStream(), type
+            )
             emit(
                 Resource.Error(
                     data = localWeekSchedule,
-                    message = "Couldn't load data from server. Check your internet connection"
+                    message = errorMessage.detail.message
                 )
             )
         } catch (e: Throwable) {
             emit(
                 Resource.Error(
                     data = localWeekSchedule,
-                    message = "Something went wrong..."
+                    message = "Couldn't load data from server. Check your internet connection"
                 )
             )
         }
@@ -126,7 +137,7 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     private suspend fun saveWeekScheduleDtoToDb(weekScheduleDto: List<ScheduleDayDto>) {
         scheduleDao.clearScheduleDayTable(typeOfWeek = weekScheduleDto[0].typeOfWeek)
-        subjectDao.clearSubjectTable()
+        subjectDao.clearSubjectTable(typeOfWeek = weekScheduleDto[0].typeOfWeek)
         weekScheduleDto.forEach { scheduleDayDto ->
             saveScheduleDayDtoToDb(scheduleDayDto = scheduleDayDto)
             saveSubjectsDtoToDb(scheduleDayDto = scheduleDayDto)
