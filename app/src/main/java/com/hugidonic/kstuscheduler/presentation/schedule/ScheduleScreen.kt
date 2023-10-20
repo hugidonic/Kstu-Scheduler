@@ -60,7 +60,7 @@ fun ScheduleScreen(
                         )
                     }
                 } else {
-                    Box(modifier = Modifier.pullRefresh(refreshState)) {
+                    Box(modifier = Modifier.fillMaxSize().pullRefresh(refreshState)) {
                         SubjectsList(
                             modifier = Modifier
                                 .fillMaxSize(),

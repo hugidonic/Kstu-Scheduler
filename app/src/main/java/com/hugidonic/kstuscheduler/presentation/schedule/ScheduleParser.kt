@@ -14,7 +14,7 @@ object ScheduleParser {
         val scheduleDate = LocalDate.parse(date, dateFormatter)
         val currentDate = LocalDate.now()
 
-        return if (scheduleDate == currentDate && currentTime in startTimeDate.minusHours(1)..endTimeDate) {
+        return if (scheduleDate == currentDate && currentTime in startTimeDate.minusMinutes(15)..endTimeDate) {
             SubjectState.ACTIVE
         } else if (scheduleDate == currentDate && currentTime > endTimeDate) {
             SubjectState.DISABLED

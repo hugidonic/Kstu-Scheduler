@@ -8,6 +8,7 @@ import com.hugidonic.domain.usecases.GetTypeOfWeekUseCase
 import com.hugidonic.domain.usecases.GetWeekScheduleDayUseCase
 import com.hugidonic.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -42,7 +43,7 @@ class ScheduleViewModel @Inject constructor(
         groupNumber: String = _stateFlow.value.group,
         typeOfWeek: String = _stateFlow.value.currentTypeOfWeek
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getWeekScheduleDayUseCase(
                 isFetchFromApi = isFetchFromApi,
                 groupNumber = groupNumber,
@@ -54,6 +55,7 @@ class ScheduleViewModel @Inject constructor(
                             result.data?.let {
                                 _stateFlow.value = _stateFlow.value.copy(
                                     weekScheduleDays = it,
+                                    group = groupNumber,
                                 )
                             }
                         }
@@ -87,7 +89,7 @@ class ScheduleViewModel @Inject constructor(
                 currentTypeOfWeek = "Чет"
             )
         }
-        getWeekSchedule(typeOfWeek = _stateFlow.value.currentTypeOfWeek)
+        getWeekSchedule(isFetchFromApi = false, typeOfWeek = _stateFlow.value.currentTypeOfWeek)
     }
 
     fun refreshSchedule() {
@@ -98,7 +100,6 @@ class ScheduleViewModel @Inject constructor(
         _stateFlow.value = _stateFlow.value.copy(
             group = newGroup
         )
-//        isGroupExist()
-        getWeekSchedule()
+        getWeekSchedule(isFetchFromApi = true, groupNumber = newGroup)
     }
 }

@@ -54,7 +54,11 @@ fun SubjectsList(
                 items = subjects,
             ) { classSubject ->
                 val subjectState =
-                    ScheduleParser.getSubjectState(scheduleDate, classSubject.startTime, classSubject.endTime)
+                    ScheduleParser.getSubjectState(
+                        date = scheduleDate,
+                        startTime = classSubject.startTime,
+                        endTime = classSubject.endTime
+                    )
                 SubjectRow(
                     subject = classSubject,
                     subjectState = subjectState
