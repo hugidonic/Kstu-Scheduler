@@ -2,8 +2,9 @@ package com.hugidonic.kstuscheduler.di
 
 import android.content.Context
 import com.hugidonic.data.database.AppDatabase
-import com.hugidonic.data.database.ScheduleDao
-import com.hugidonic.data.database.SubjectDao
+import com.hugidonic.data.database.entities.dao.NewsDao
+import com.hugidonic.data.database.entities.dao.ScheduleDao
+import com.hugidonic.data.database.entities.dao.SubjectDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +22,12 @@ class DatabaseModule {
         @ApplicationContext context: Context
     ): AppDatabase {
         return AppDatabase.getInstance(context = context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsDao(appDatabase: AppDatabase): NewsDao {
+        return appDatabase.newsDao()
     }
 
     @Provides

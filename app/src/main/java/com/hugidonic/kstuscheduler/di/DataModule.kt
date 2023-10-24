@@ -1,10 +1,13 @@
 package com.hugidonic.kstuscheduler.di
 
-import com.hugidonic.data.database.ScheduleDao
-import com.hugidonic.data.database.SubjectDao
+import com.hugidonic.data.database.entities.dao.NewsDao
+import com.hugidonic.data.database.entities.dao.ScheduleDao
+import com.hugidonic.data.database.entities.dao.SubjectDao
 import com.hugidonic.data.remote.ApiFactory
 import com.hugidonic.data.remote.ApiService
+import com.hugidonic.data.repository.NewsRepositoryImpl
 import com.hugidonic.data.repository.ScheduleRepositoryImpl
+import com.hugidonic.domain.repositories.NewsRepository
 import com.hugidonic.domain.repositories.ScheduleRepository
 import dagger.Module
 import dagger.Provides
@@ -20,6 +23,15 @@ class DataModule {
     @Singleton
     fun provideApiService(): ApiService {
         return ApiFactory().scheduleApi
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(
+        newsDao: NewsDao,
+        apiService: ApiService
+    ): NewsRepository {
+        return NewsRepositoryImpl(newsDao = newsDao, apiService = apiService)
     }
 
     @Provides

@@ -1,7 +1,12 @@
 package com.hugidonic.kstuscheduler.di
 
+import com.hugidonic.domain.repositories.NewsRepository
 import com.hugidonic.domain.repositories.ScheduleRepository
-import com.hugidonic.domain.usecases.*
+import com.hugidonic.domain.usecases.news.GetNewsUseCase
+import com.hugidonic.domain.usecases.schedule.GetSubjectDetailsById
+import com.hugidonic.domain.usecases.utils.GetTypeOfWeekUseCase
+import com.hugidonic.domain.usecases.schedule.GetWeekScheduleUseCase
+import com.hugidonic.domain.usecases.utils.GetCurrentDateUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,17 +17,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class DomainModule {
 
-
     @Singleton
     @Provides
-    fun provideGetWeekScheduleDayUseCase(scheduleRepository: ScheduleRepository): GetWeekScheduleDayUseCase {
-        return GetWeekScheduleDayUseCase(scheduleRepository = scheduleRepository)
+    fun provideGetNewsUseCase(newsRepository: NewsRepository): GetNewsUseCase {
+        return GetNewsUseCase(newsRepository = newsRepository)
     }
 
     @Singleton
     @Provides
-    fun provideGetScheduleDayUseCase(scheduleRepository: ScheduleRepository): GetScheduleDayUseCase {
-        return GetScheduleDayUseCase(scheduleRepository = scheduleRepository)
+    fun provideGetWeekScheduleUseCase(scheduleRepository: ScheduleRepository): GetWeekScheduleUseCase {
+        return GetWeekScheduleUseCase(scheduleRepository = scheduleRepository)
     }
 
     @Singleton
