@@ -23,7 +23,7 @@ class PrepodDetailsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(600L)
+            delay(300L)
             _stateFlow.value = _stateFlow.value.copy(
                 prepodDetails = DummyData.prepodDetails
             )
