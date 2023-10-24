@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.hugidonic.kstuscheduler.presentation.navigation.ShowBars
 import com.hugidonic.kstuscheduler.presentation.schedule.components.Header
 import com.hugidonic.kstuscheduler.presentation.schedule.components.SubjectsList
+import com.hugidonic.kstuscheduler.presentation.shared.LoadingCircle
 import com.hugidonic.kstuscheduler.presentation.shared.pullToRefresh.PullRefreshIndicator
 import com.hugidonic.kstuscheduler.presentation.shared.pullToRefresh.pullRefresh
 import com.hugidonic.kstuscheduler.presentation.shared.pullToRefresh.rememberPullRefreshState
@@ -47,20 +48,11 @@ fun ScheduleScreen(
                     .weight(1f)
             ) { index ->
                 if (state.isLoading || state.weekScheduleDays.isNullOrEmpty()) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.primary,
-                            strokeWidth = 8.dp,
-                            strokeCap = StrokeCap.Round,
-                            modifier = Modifier.size(100.dp)
-                        )
-                    }
+                    LoadingCircle()
                 } else {
-                    Box(modifier = Modifier.fillMaxSize().pullRefresh(refreshState)) {
+                    Box(modifier = Modifier
+                        .fillMaxSize()
+                        .pullRefresh(refreshState)) {
                         SubjectsList(
                             modifier = Modifier
                                 .fillMaxSize(),
