@@ -3,9 +3,9 @@ package com.hugidonic.kstuscheduler.presentation.schedule
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hugidonic.domain.usecases.GetCurrentDateUseCase
-import com.hugidonic.domain.usecases.GetTypeOfWeekUseCase
-import com.hugidonic.domain.usecases.GetWeekScheduleDayUseCase
+import com.hugidonic.domain.usecases.schedule.GetWeekScheduleUseCase
+import com.hugidonic.domain.usecases.utils.GetCurrentDateUseCase
+import com.hugidonic.domain.usecases.utils.GetTypeOfWeekUseCase
 import com.hugidonic.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    val getWeekScheduleDayUseCase: GetWeekScheduleDayUseCase,
+    val getWeekScheduleUseCase: GetWeekScheduleUseCase,
     getTypeOfWeekUseCase: GetTypeOfWeekUseCase,
     getCurrentDateUseCase: GetCurrentDateUseCase
 ) : ViewModel() {
@@ -44,7 +44,7 @@ class ScheduleViewModel @Inject constructor(
         typeOfWeek: String = _stateFlow.value.currentTypeOfWeek
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            getWeekScheduleDayUseCase(
+            getWeekScheduleUseCase(
                 isFetchFromApi = isFetchFromApi,
                 groupNumber = groupNumber,
                 typeOfWeek = typeOfWeek
@@ -52,21 +52,17 @@ class ScheduleViewModel @Inject constructor(
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            result.data?.let {
-                                _stateFlow.value = _stateFlow.value.copy(
-                                    weekScheduleDays = it,
-                                    group = groupNumber,
-                                )
-                            }
+                            _stateFlow.value = _stateFlow.value.copy(
+                                weekScheduleDays = result.data,
+                                group = groupNumber,
+                            )
                         }
                         is Resource.Error -> {
-                            result.data?.let {
-                                _eventFlow.emit(
-                                    ScheduleUIEvent.ShowSnackbar(
-                                        result.message ?: "Something went wrong..."
-                                    )
+                            _eventFlow.emit(
+                                ScheduleUIEvent.ShowSnackbar(
+                                    result.message ?: "Something went wrong..."
                                 )
-                            }
+                            )
                         }
 
                         is Resource.Loading -> {

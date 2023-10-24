@@ -3,7 +3,7 @@ package com.hugidonic.kstuscheduler.presentation.subjectdetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hugidonic.domain.usecases.GetSubjectDetailsById
+import com.hugidonic.domain.usecases.schedule.GetSubjectDetailsById
 import com.hugidonic.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
