@@ -1,4 +1,4 @@
-package com.hugidonic.data.database
+package com.hugidonic.data.database.entities.dao
 
 import androidx.room.*
 import com.hugidonic.data.database.entities.ScheduleDayEntity
