@@ -44,8 +44,13 @@ fun BottomTab(
             .background(background)
             .clickable(onClick = {
                 navController.navigate(screen.route) {
-                    popUpTo(navController.graph.findStartDestination().id)
+//                    TODO: wtf...
+                    navController.popBackStack()
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
                     launchSingleTop = true
+                    restoreState = true
                 }
             })
     ) {

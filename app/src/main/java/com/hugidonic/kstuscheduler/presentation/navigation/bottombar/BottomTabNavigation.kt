@@ -31,7 +31,7 @@ fun BottomNavigationBar(
         exit = slideOutVertically(targetOffsetY = { it }),
     ) {
         NavigationBar(
-            containerColor = MaterialTheme.colorScheme.background,
+            containerColor = MaterialTheme.colorScheme.surface,
             modifier = Modifier.shadow(
                 elevation = 10.dp,
                 spotColor = MaterialTheme.colorScheme.onSurface
@@ -42,7 +42,7 @@ fun BottomNavigationBar(
 
             Row(
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(MaterialTheme.colorScheme.surface)
                     .fillMaxHeight()
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
