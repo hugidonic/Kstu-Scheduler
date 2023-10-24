@@ -7,8 +7,8 @@ import com.hugidonic.data.converters.toModel
 import com.hugidonic.data.converters.toScheduleDayEntity
 import com.hugidonic.data.converters.toSubjectEntity
 import com.hugidonic.data.converters.toSubjectModel
-import com.hugidonic.data.database.ScheduleDao
-import com.hugidonic.data.database.SubjectDao
+import com.hugidonic.data.database.entities.dao.ScheduleDao
+import com.hugidonic.data.database.entities.dao.SubjectDao
 import com.hugidonic.data.remote.ApiService
 import com.hugidonic.data.remote.dto.ErrorResponseDto
 import com.hugidonic.data.remote.dto.ScheduleDayDto
