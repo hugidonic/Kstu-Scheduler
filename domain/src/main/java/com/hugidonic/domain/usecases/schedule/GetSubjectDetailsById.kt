@@ -1,4 +1,4 @@
-package com.hugidonic.domain.usecases
+package com.hugidonic.domain.usecases.schedule
 
 import com.hugidonic.domain.models.SubjectModel
 import com.hugidonic.domain.repositories.ScheduleRepository

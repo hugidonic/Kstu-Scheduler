@@ -1,4 +1,4 @@
-package com.hugidonic.domain.usecases
+package com.hugidonic.domain.usecases.utils
 
 import com.hugidonic.domain.repositories.ScheduleRepository
 import java.time.LocalDate
