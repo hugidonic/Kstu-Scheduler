@@ -1,4 +1,4 @@
-package com.hugidonic.data.database
+package com.hugidonic.data.database.entities.dao
 
 import androidx.room.*
 import com.hugidonic.data.database.entities.SubjectEntity
@@ -17,8 +17,8 @@ interface SubjectDao {
     @Query("SELECT * FROM subject")
     suspend fun getAllSubjects(): List<SubjectEntity>
 
-    @Query("DELETE FROM subject")
-    suspend fun clearSubjectTable()
+    @Query("DELETE FROM subject WHERE scheduleDayId LIKE :typeOfWeek || '%'")
+    suspend fun clearSubjectTable(typeOfWeek: String)
 
     @Query("SELECT * FROM subject WHERE subjectTitle = :subjectTitle LIMIT 1")
     suspend fun getSubjectByTitle(subjectTitle: String): SubjectEntity

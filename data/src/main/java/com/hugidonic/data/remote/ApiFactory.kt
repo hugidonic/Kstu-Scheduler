@@ -1,5 +1,6 @@
 package com.hugidonic.data.remote
 
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -11,6 +12,8 @@ class ApiFactory {
         .baseUrl(BASE_URL)
         .build()
         .create()
+
+
 
     companion object {
         const val BASE_URL = "https://scheduler-api.vercel.app"

@@ -14,6 +14,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hugidonic.kstuscheduler.presentation.navigation.AppNavGraph
 import com.hugidonic.kstuscheduler.presentation.navigation.Screen
+import com.hugidonic.kstuscheduler.presentation.navigation.bottombar.BottomNavigationBar
 import com.hugidonic.kstuscheduler.presentation.navigation.topbar.TopBar
 import com.hugidonic.kstuscheduler.presentation.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,15 +36,21 @@ class MainActivity : ComponentActivity() {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
                     var isTopBarVisible by rememberSaveable { (mutableStateOf(true)) }
+                    var isBottomBarVisible by rememberSaveable { (mutableStateOf(true)) }
 
                     // Control TopBar and BottomBar
                     when (navBackStackEntry?.destination?.route) {
-                        Screen.SubjectDetails.route, Screen.PrepodDetails.route -> {
+                        Screen.SubjectDetails.route, Screen.PrepodDetails.route-> {
                             isTopBarVisible = true
+                            isBottomBarVisible = false
                         }
-
+                        Screen.Splash.route, Screen.NewsDetails.route -> {
+                            isTopBarVisible = false
+                            isBottomBarVisible = false
+                        }
                         else -> {
                             isTopBarVisible = false
+                            isBottomBarVisible = true
                         }
                     }
 
@@ -57,6 +64,9 @@ class MainActivity : ComponentActivity() {
                                 TopBar(navController = navController)
                             }
                         },
+                        bottomBar = {
+                            BottomNavigationBar(navController = navController, isBottomBarVisible = isBottomBarVisible)
+                        }
                     ) { padding ->
                         AppNavGraph(
                             navHostController = navController,

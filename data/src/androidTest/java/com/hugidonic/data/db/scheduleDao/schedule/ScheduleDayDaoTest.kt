@@ -5,7 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth
 import com.hugidonic.data.converters.toScheduleDayEntity
 import com.hugidonic.data.database.AppDatabase
-import com.hugidonic.data.database.ScheduleDao
+import com.hugidonic.data.database.entities.dao.ScheduleDao
 import com.hugidonic.data.database.entities.ScheduleDayEntity
 import com.hugidonic.data.remote.ApiFactory
 import com.hugidonic.data.remote.ApiService

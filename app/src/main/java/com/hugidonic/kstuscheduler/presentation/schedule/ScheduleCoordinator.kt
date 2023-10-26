@@ -40,6 +40,10 @@ class ScheduleCoordinator(
         }
     }
 
+    fun onRefresh() {
+        viewModel.refreshSchedule()
+    }
+
     fun onDayOfWeekClick(dayOfWeekIdx: Int) {
         pagerPage.intValue = dayOfWeekIdx
         scope.launch { pagerState.animateScrollToPage(dayOfWeekIdx) }

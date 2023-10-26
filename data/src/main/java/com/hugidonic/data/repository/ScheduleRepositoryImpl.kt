@@ -1,12 +1,16 @@
 package com.hugidonic.data.repository
 
+import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.hugidonic.data.converters.toModel
 import com.hugidonic.data.converters.toScheduleDayEntity
 import com.hugidonic.data.converters.toSubjectEntity
 import com.hugidonic.data.converters.toSubjectModel
-import com.hugidonic.data.database.ScheduleDao
-import com.hugidonic.data.database.SubjectDao
+import com.hugidonic.data.database.entities.dao.ScheduleDao
+import com.hugidonic.data.database.entities.dao.SubjectDao
 import com.hugidonic.data.remote.ApiService
+import com.hugidonic.data.remote.dto.ErrorResponseDto
 import com.hugidonic.data.remote.dto.ScheduleDayDto
 import com.hugidonic.domain.models.ScheduleDayModel
 import com.hugidonic.domain.models.SubjectModel
@@ -17,8 +21,8 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import java.time.DayOfWeek
-import java.time.LocalDate
 import java.time.Duration
+import java.time.LocalDate
 import javax.inject.Inject
 
 class ScheduleRepositoryImpl @Inject constructor(
@@ -29,11 +33,13 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     override suspend fun getWeekSchedule(
         isFetchFromApi: Boolean,
+        groupNumber: String,
         typeOfWeek: String
     ): Flow<Resource<List<ScheduleDayModel>>> = flow {
         emit(Resource.Loading(true))
 
-        val localWeekSchedule: List<ScheduleDayModel> = scheduleDao.getWeekScheduleByType(typeOfWeek = typeOfWeek).map {
+        val localWeekScheduleEntities = scheduleDao.getWeekScheduleByType(typeOfWeek = typeOfWeek)
+        val localWeekSchedule: List<ScheduleDayModel> = localWeekScheduleEntities.map {
             ScheduleDayModel(
                 scheduleDayId = it.scheduleDayInfo.scheduleDayId,
                 dayOfWeek = it.scheduleDayInfo.dayOfWeek,
@@ -49,22 +55,36 @@ class ScheduleRepositoryImpl @Inject constructor(
             )
         )
 
-        val shouldLoadFromCache = localWeekSchedule.isNotEmpty() && !isFetchFromApi
+        val isLocalEmpty = localWeekSchedule.map() {it ->
+            it.subjects.isEmpty()
+        }.all { it }
+        val shouldLoadFromCache = !isLocalEmpty && !isFetchFromApi
+
         if (shouldLoadFromCache) {
+            Log.d("cache", localWeekSchedule.toString())
             emit(Resource.Loading(false))
             return@flow
         }
 
         try {
-            val weekScheduleDto: List<ScheduleDayDto> = if (typeOfWeek == "Чет") {
-                apiService.getChetWeekSchedule()
-            } else {
-                apiService.getNechetWeekSchedule()
-            }
+            val weekScheduleDto = apiService.getWeekScheduleForGroup(
+                groupNumber = groupNumber,
+                typeOfWeek = typeOfWeek
+            )
             saveWeekScheduleDtoToDb(weekScheduleDto = weekScheduleDto)
-        } catch (e: IOException) {
-            emit(Resource.Error(data = localWeekSchedule, message = "Something went wrong..."))
         } catch (e: HttpException) {
+//            Getting the message from error.
+            val type = object : TypeToken<ErrorResponseDto>() {}.type
+            val errorMessage = Gson().fromJson<ErrorResponseDto>(
+                e.response()?.errorBody()?.charStream(), type
+            )
+            emit(
+                Resource.Error(
+                    data = localWeekSchedule,
+                    message = errorMessage.detail.message
+                )
+            )
+        } catch (e: Throwable) {
             emit(
                 Resource.Error(
                     data = localWeekSchedule,
@@ -117,7 +137,7 @@ class ScheduleRepositoryImpl @Inject constructor(
 
     private suspend fun saveWeekScheduleDtoToDb(weekScheduleDto: List<ScheduleDayDto>) {
         scheduleDao.clearScheduleDayTable(typeOfWeek = weekScheduleDto[0].typeOfWeek)
-        subjectDao.clearSubjectTable()
+        subjectDao.clearSubjectTable(typeOfWeek = weekScheduleDto[0].typeOfWeek)
         weekScheduleDto.forEach { scheduleDayDto ->
             saveScheduleDayDtoToDb(scheduleDayDto = scheduleDayDto)
             saveSubjectsDtoToDb(scheduleDayDto = scheduleDayDto)

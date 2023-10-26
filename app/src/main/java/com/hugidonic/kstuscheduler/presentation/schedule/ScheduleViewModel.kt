@@ -1,23 +1,22 @@
 package com.hugidonic.kstuscheduler.presentation.schedule
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hugidonic.domain.usecases.GetCurrentDateUseCase
-import com.hugidonic.domain.usecases.GetTypeOfWeekUseCase
-import com.hugidonic.domain.usecases.GetWeekScheduleDayUseCase
+import com.hugidonic.domain.usecases.schedule.GetWeekScheduleUseCase
+import com.hugidonic.domain.usecases.utils.GetCurrentDateUseCase
+import com.hugidonic.domain.usecases.utils.GetTypeOfWeekUseCase
 import com.hugidonic.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@OptIn(ExperimentalFoundationApi::class)
 @HiltViewModel
 class ScheduleViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    val getWeekScheduleDayUseCase: GetWeekScheduleDayUseCase,
+    val getWeekScheduleUseCase: GetWeekScheduleUseCase,
     getTypeOfWeekUseCase: GetTypeOfWeekUseCase,
     getCurrentDateUseCase: GetCurrentDateUseCase
 ) : ViewModel() {
@@ -36,38 +35,34 @@ class ScheduleViewModel @Inject constructor(
             currentTypeOfWeek = currentTypeOfWeek,
         )
 
-        getWeekSchedule(currentTypeOfWeek)
+        getWeekSchedule()
     }
 
-    private fun getWeekSchedule(typeOfWeek: String = currentTypeOfWeek) {
-        viewModelScope.launch {
-            getWeekScheduleDayUseCase(isFetchFromApi = true, typeOfWeek = typeOfWeek)
-                .catch {
-                    _eventFlow.emit(
-                        ScheduleUIEvent.ShowSnackbar(
-                            it.message ?: "Something went wrong..."
-                        )
-                    )
-                }
+    private fun getWeekSchedule(
+        isFetchFromApi: Boolean = false,
+        groupNumber: String = _stateFlow.value.group,
+        typeOfWeek: String = _stateFlow.value.currentTypeOfWeek
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            getWeekScheduleUseCase(
+                isFetchFromApi = isFetchFromApi,
+                groupNumber = groupNumber,
+                typeOfWeek = typeOfWeek
+            )
                 .collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            result.data?.let {
-                                _stateFlow.value = _stateFlow.value.copy(
-                                    weekScheduleDays = it,
-                                )
-                            }
+                            _stateFlow.value = _stateFlow.value.copy(
+                                weekScheduleDays = result.data,
+                                group = groupNumber,
+                            )
                         }
-
                         is Resource.Error -> {
-                            result.data?.let {
-                                _eventFlow.emit(
-                                    ScheduleUIEvent.ShowSnackbar(
-                                        result.message ?: "Something went wrong..."
-                                    )
-
+                            _eventFlow.emit(
+                                ScheduleUIEvent.ShowSnackbar(
+                                    result.message ?: "Something went wrong..."
                                 )
-                            }
+                            )
                         }
 
                         is Resource.Loading -> {
@@ -90,13 +85,17 @@ class ScheduleViewModel @Inject constructor(
                 currentTypeOfWeek = "Чет"
             )
         }
-        getWeekSchedule()
+        getWeekSchedule(isFetchFromApi = false, typeOfWeek = _stateFlow.value.currentTypeOfWeek)
+    }
+
+    fun refreshSchedule() {
+        getWeekSchedule(isFetchFromApi = true)
     }
 
     fun editGroup(newGroup: String) {
         _stateFlow.value = _stateFlow.value.copy(
             group = newGroup
         )
-        getWeekSchedule()
+        getWeekSchedule(isFetchFromApi = true, groupNumber = newGroup)
     }
 }

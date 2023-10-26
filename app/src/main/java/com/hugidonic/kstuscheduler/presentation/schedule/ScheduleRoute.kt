@@ -37,7 +37,8 @@ fun rememberScheduleActions(coordinator: ScheduleCoordinator, navController: Nav
             onDayOfWeekClick = coordinator::onDayOfWeekClick,
             onSubjectClick = coordinator::onSubjectClick,
             onChangeTypeOfWeek = coordinator::onChangeTypeOfWeek,
-            onEditGroup = coordinator::onEditGroupClick
+            onEditGroup = coordinator::onEditGroupClick,
+            onRefresh = coordinator::onRefresh
         )
     }
 }

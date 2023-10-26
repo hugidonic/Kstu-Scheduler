@@ -39,53 +39,6 @@ object Constants {
         "Сб",
     )
 
-    fun getScheduleDayInitialData(typeOfWeek: String): List<ScheduleDayModel> {
-        return listOf(
-            ScheduleDayModel(
-                scheduleDayId = "$typeOfWeek/Пн",
-                dayOfWeek = "Пн",
-                typeOfWeek = typeOfWeek,
-                date = getDateBy(DayOfWeek.MONDAY).toString(),
-                subjects = emptyList(),
-            ),
-            ScheduleDayModel(
-                scheduleDayId = "$typeOfWeek/Вт",
-                dayOfWeek = "Вт",
-                typeOfWeek = typeOfWeek,
-                date = getDateBy(DayOfWeek.TUESDAY).toString(),
-                subjects = emptyList(),
-            ),
-            ScheduleDayModel(
-                scheduleDayId = "$typeOfWeek/Ср",
-                dayOfWeek = "Ср",
-                typeOfWeek = typeOfWeek,
-                date = getDateBy(DayOfWeek.WEDNESDAY).toString(),
-                subjects = emptyList(),
-            ),
-            ScheduleDayModel(
-                scheduleDayId = "$typeOfWeek/Чт",
-                dayOfWeek = "Чт",
-                typeOfWeek = typeOfWeek,
-                date = getDateBy(DayOfWeek.THURSDAY).toString(),
-                subjects = emptyList(),
-            ),
-            ScheduleDayModel(
-                scheduleDayId = "$typeOfWeek/Пт",
-                dayOfWeek = "Пт",
-                typeOfWeek = typeOfWeek,
-                date = getDateBy(DayOfWeek.FRIDAY).toString(),
-                subjects = emptyList(),
-            ),
-            ScheduleDayModel(
-                scheduleDayId = "$typeOfWeek/Сб",
-                dayOfWeek = "Сб",
-                typeOfWeek = typeOfWeek,
-                date = getDateBy(DayOfWeek.SATURDAY).toString(),
-                subjects = emptyList(),
-            ),
-        )
-    }
-
     val SUBJECT_COL_WIDTH = 44.dp
     val SUBJECT_DIVIDER_WIDTH = 2.dp
     val ELLIPSE_PADDING = 5.dp
@@ -107,6 +60,11 @@ object Constants {
             label = "Расписание",
             icon = R.drawable.schedule,
             route = Screen.Schedule.route
+        ),
+        BottomNavItem(
+            label = "Новости",
+            icon = R.drawable.news,
+            route = Screen.News.route
         ),
         BottomNavItem(
             label = "Профиль",

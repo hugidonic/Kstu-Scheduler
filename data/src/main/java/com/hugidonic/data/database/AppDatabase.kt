@@ -4,21 +4,26 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.hugidonic.data.database.entities.NewsEntity
 import com.hugidonic.data.database.entities.ScheduleDayEntity
 import com.hugidonic.data.database.entities.SubjectEntity
+import com.hugidonic.data.database.entities.dao.NewsDao
+import com.hugidonic.data.database.entities.dao.ScheduleDao
+import com.hugidonic.data.database.entities.dao.SubjectDao
 
 @Database(
     entities = [
         ScheduleDayEntity::class,
         SubjectEntity::class,
+        NewsEntity::class,
     ],
-    version = 2,
-    exportSchema = false
+    version = 4,
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
-
     abstract fun scheduleDao(): ScheduleDao
     abstract fun subjectDao(): SubjectDao
+    abstract fun newsDao(): NewsDao
 
     companion object {
         private var db: AppDatabase? = null

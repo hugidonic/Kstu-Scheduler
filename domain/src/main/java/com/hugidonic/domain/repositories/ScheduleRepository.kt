@@ -9,6 +9,7 @@ import java.time.LocalDate
 interface ScheduleRepository {
     suspend fun getWeekSchedule(
         isFetchFromApi: Boolean,
+        groupNumber: String,
         typeOfWeek: String = getTypeOfWeek()
     ): Flow<Resource<List<ScheduleDayModel>>>
 

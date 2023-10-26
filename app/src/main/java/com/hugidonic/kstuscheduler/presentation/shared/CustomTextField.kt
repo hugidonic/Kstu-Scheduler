@@ -1,5 +1,6 @@
 package com.hugidonic.kstuscheduler.presentation.shared
 
+import android.util.Log
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.ZeroCornerSize

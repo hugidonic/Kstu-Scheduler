@@ -2,6 +2,7 @@ package com.hugidonic.kstuscheduler.presentation.subjectdetails.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,7 +26,8 @@ import com.hugidonic.kstuscheduler.presentation.ui.theme.RobotoRegular
 @Composable
 fun Details(
     modifier: Modifier = Modifier,
-    subjectInfo: SubjectModel
+    subjectInfo: SubjectModel,
+    onPrepodClick: (prepodId: Int) -> Unit
 ) {
 
     val textColor = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.primary
@@ -88,6 +90,9 @@ fun Details(
                 Text(
                     text = subjectInfo.prepod,
                     style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.clickable {
+                        onPrepodClick(0)
+                    },
                     textDecoration = TextDecoration.Underline,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -191,7 +196,8 @@ private fun PreviewDetails() {
         Surface {
             Details(
                 modifier = Modifier.padding(10.dp),
-                subjectInfo = DummyData.weekSchedule[3].subjects[0]
+                subjectInfo = DummyData.weekSchedule[3].subjects[0],
+                onPrepodClick = {}
             )
         }
     }
