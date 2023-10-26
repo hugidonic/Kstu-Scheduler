@@ -17,7 +17,8 @@ import androidx.compose.ui.unit.dp
 fun LoadingCircle(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
-    size: Dp = 100.dp
+    size: Dp = 100.dp,
+    strokeWidth: Dp = 8.dp
 ) {
     Box(
         modifier = modifier
@@ -26,7 +27,7 @@ fun LoadingCircle(
     ) {
         CircularProgressIndicator(
             color = color,
-            strokeWidth = 8.dp,
+            strokeWidth = strokeWidth,
             strokeCap = StrokeCap.Round,
             modifier = Modifier.size(size)
         )

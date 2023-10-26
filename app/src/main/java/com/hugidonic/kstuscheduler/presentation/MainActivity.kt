@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                         }
                         else -> {
                             isTopBarVisible = false
-                            isBottomBarVisible = false
+                            isBottomBarVisible = true
                         }
                     }
 

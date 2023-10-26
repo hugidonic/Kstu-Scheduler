@@ -3,6 +3,7 @@ package com.hugidonic.kstuscheduler.presentation.news.components
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -48,7 +49,7 @@ fun NewsCard(
                     .build(),
 
                 loading = {
-                    LoadingCircle(size = 50.dp)
+                    LoadingCircle(size = 50.dp, strokeWidth = 5.dp)
                 },
                 contentScale = ContentScale.Crop,
                 contentDescription = "news image",
@@ -66,7 +67,7 @@ fun NewsCard(
                 )
                 Text(
                     text = newsInfo.title,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleSmall,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
