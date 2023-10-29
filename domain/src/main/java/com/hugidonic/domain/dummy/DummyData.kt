@@ -101,7 +101,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "09:40",
                     endTime = "11:10",
-                    scheduleDayId = "Нечет/Вт",
                 )
             )
         ),
@@ -122,7 +121,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "11:20",
                     endTime = "12:50",
-                    scheduleDayId = "Нечет/Ср",
                 ),
                 SubjectModel(
                     scheduleDayId = "Нечет/Ср",
@@ -135,7 +133,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "13:00",
                     endTime = "14:30",
-                    scheduleDayId = "Нечет/Ср",
                 ),
                 SubjectModel(
                     scheduleDayId = "Нечет/Ср",
@@ -148,7 +145,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "16:20",
                     endTime = "17:50",
-                    scheduleDayId = "Нечет/Ср",
                 ),
                 SubjectModel(
                     scheduleDayId = "Нечет/Ср",
@@ -161,7 +157,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "18:00",
                     endTime = "19:30",
-                    scheduleDayId = "Нечет/Ср",
                 ),
             ),
         ),
@@ -182,7 +177,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "09:40",
                     endTime = "11:10",
-                    scheduleDayId = "Нечет/Чт",
                 ),
                 SubjectModel(
                     scheduleDayId = "Нечет/Чт",
@@ -195,7 +189,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "11:20",
                     endTime = "12:50",
-                    scheduleDayId = "Нечет/Чт",
                 ),
                 SubjectModel(
                     scheduleDayId = "Нечет/Чт",
@@ -208,7 +201,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "13:00",
                     endTime = "14:30",
-                    scheduleDayId = "Нечет/Чт",
                 )
             ),
         ),
@@ -229,7 +221,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "13:00",
                     endTime = "14:30",
-                    scheduleDayId = "Нечет/Пт",
                 ),
                 SubjectModel(
                     scheduleDayId = "Нечет/Пт",
@@ -242,7 +233,6 @@ object DummyData {
                     subjectId = Random.nextInt(),
                     startTime = "16:20",
                     endTime = "17:50",
-                    scheduleDayId = "Нечет/Пт",
                 )
             ),
         ),
