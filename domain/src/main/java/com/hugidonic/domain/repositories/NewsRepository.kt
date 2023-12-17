@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
     suspend fun getNews(isFetchFromRemote: Boolean, newsType: String): Flow<Resource<List<NewsModel>>>
+    suspend fun getNewsById(newsId: Int): Flow<Resource<NewsModel>>
 }

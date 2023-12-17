@@ -77,4 +77,17 @@ class NewsRepositoryImpl @Inject constructor(
             newsDao.insertNews(it.toEntity(newsType = newsType))
         }
     }
+
+
+    override suspend fun getNewsById(newsId: Int): Flow<Resource<NewsModel>> = flow {
+        emit(Resource.Loading(true))
+        try {
+            val newsEntity = newsDao.getNewsById(newsId)
+            emit(Resource.Success(data = newsEntity.toModel()))
+        } catch (e: IOException) {
+            emit(Resource.Error(data = null, message = e.message?: "Что-то пошло не так..."))
+        } finally {
+            emit(Resource.Loading(false))
+        }
+    }
 }

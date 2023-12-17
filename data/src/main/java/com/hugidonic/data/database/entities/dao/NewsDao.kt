@@ -14,6 +14,9 @@ interface NewsDao {
     @Query("SELECT * FROM news WHERE newsType = :newsType")
     suspend fun getAllNewsByType(newsType: String): List<NewsEntity>
 
+    @Query("SELECT * FROM news WHERE newsId = :newsId LIMIT 1")
+    suspend fun getNewsById(newsId: Int): NewsEntity
+
     @Query("DELETE FROM news WHERE newsType = :newsType")
     suspend fun deleteNewsByType(newsType: String)
 

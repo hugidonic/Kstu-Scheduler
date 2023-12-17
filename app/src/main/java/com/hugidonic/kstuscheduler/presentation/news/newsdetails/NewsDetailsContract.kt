@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.hugidonic.domain.models.NewsModel
+import com.hugidonic.kstuscheduler.presentation.schedule.ScheduleUIEvent
 
 
 /**
@@ -13,6 +14,13 @@ data class NewsDetailsState (
     val newsDetails: NewsModel? = null,
     val isLoading: Boolean = false,
 )
+
+/**
+ * UI Events
+ */
+sealed class NewsDetailsUIEvent() {
+    class ShowSnackbar(val message: String): NewsDetailsUIEvent()
+}
 
 /**
  * NewsDetails Actions emitted from the UI Layer
